@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Via · 隐私政策 / Privacy Policy</title>
+  <meta name="description" content="Via App 隐私政策 / Via App Privacy Policy" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #f5f1ec;
+      --card:      #ffffff;
+      --primary:   #3d2c1e;
+      --secondary: #8a7060;
+      --accent:    #7c5c3e;
+      --border:    #e8e0d8;
+      --tag-bg:    #ede8e2;
+      --radius:    14px;
+      --shadow:    0 2px 12px rgba(60,40,20,0.07);
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+                   "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      background: var(--bg);
+      color: var(--primary);
+      line-height: 1.75;
+      min-height: 100vh;
+    }
+
+    /* ── Top bar ── */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      height: 56px;
+      background: rgba(245,241,236,0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .topbar-brand {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--accent);
+      letter-spacing: -0.3px;
+      text-decoration: none;
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Menu */
+    .menu-wrap { position: relative; }
+    .menu-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 13px;
+      background: var(--tag-bg);
+      border: none;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--secondary);
+      cursor: pointer;
+      transition: background 0.18s;
+    }
+    .menu-btn:hover { background: var(--border); }
+    .dropdown {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: calc(100% + 8px);
+      min-width: 180px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: 0 8px 40px rgba(60,40,20,0.13);
+      overflow: hidden;
+      z-index: 300;
+    }
+    .dropdown.open { display: block; }
+    .dropdown a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      font-size: 14px;
+      color: var(--primary);
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+    .dropdown a:hover { background: var(--tag-bg); }
+    .dropdown a + a   { border-top: 1px solid var(--border); }
+
+    .lang-toggle {
+      display: flex;
+      gap: 4px;
+      background: var(--tag-bg);
+      border-radius: 20px;
+      padding: 3px;
+    }
+
+    .lang-btn {
+      padding: 4px 14px;
+      border: none;
+      border-radius: 16px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      background: transparent;
+      color: var(--secondary);
+      transition: all 0.2s;
+    }
+
+    .lang-btn.active {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Layout ── */
+    .container {
+      max-width: 740px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      text-align: center;
+      padding: 48px 0 36px;
+    }
+
+    .hero-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+
+    .hero h1 {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: -0.5px;
+    }
+
+    .hero .meta {
+      margin-top: 10px;
+      font-size: 14px;
+      color: var(--secondary);
+    }
+
+    /* ── Section ── */
+    .section {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 28px 28px;
+      margin-bottom: 16px;
+    }
+
+    .section h2 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section h2 .icon {
+      font-size: 18px;
+    }
+
+    .section p {
+      font-size: 15px;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+
+    .section p:last-child { margin-bottom: 0; }
+
+    .section ul, .section ol {
+      padding-left: 20px;
+      font-size: 15px;
+      color: var(--primary);
+    }
+
+    .section li { margin-bottom: 6px; }
+
+    /* ── Highlight box ── */
+    .highlight {
+      background: #f0ebe4;
+      border-left: 3px solid var(--accent);
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin: 14px 0;
+      font-size: 14px;
+      color: var(--secondary);
+    }
+
+    /* ── Tag ── */
+    .tag {
+      display: inline-block;
+      background: var(--tag-bg);
+      color: var(--accent);
+      border-radius: 6px;
+      padding: 2px 8px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-right: 4px;
+      vertical-align: middle;
+    }
+
+    .tag.green  { background: #e6f4ec; color: #3a7d52; }
+    .tag.red    { background: #faeaea; color: #c0392b; }
+    .tag.blue   { background: #e8f0fa; color: #2c5282; }
+
+    /* ── Table ── */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      margin-top: 12px;
+    }
+
+    .data-table th {
+      text-align: left;
+      font-weight: 600;
+      color: var(--secondary);
+      padding: 8px 12px;
+      background: var(--tag-bg);
+      border-radius: 6px 6px 0 0;
+    }
+
+    .data-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border);
+      color: var(--primary);
+      vertical-align: top;
+    }
+
+    .data-table tr:last-child td { border-bottom: none; }
+
+    /* ── Contact ── */
+    .contact-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: #f0ebe4;
+      border-radius: 10px;
+      padding: 16px 18px;
+      margin-top: 10px;
+    }
+
+    .contact-card .avatar {
+      font-size: 36px;
+      flex-shrink: 0;
+    }
+
+    .contact-card .name {
+      font-weight: 600;
+      font-size: 15px;
+    }
+
+    .contact-card .email a {
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      font-size: 13px;
+      color: var(--secondary);
+      padding: 32px 0 0;
+    }
+
+    /* ── Language switching ── */
+    [data-lang] { display: none; }
+    html[lang="zh-Hans"] [data-lang="zh"] { display: block; }
+    html[lang="en"]      [data-lang="en"] { display: block; }
+
+    /* inline spans */
+    span[data-lang] { display: none; }
+    html[lang="zh-Hans"] span[data-lang="zh"] { display: inline; }
+    html[lang="en"]      span[data-lang="en"] { display: inline; }
+
+    @media (max-width: 500px) {
+      .section { padding: 20px 16px; }
+      .topbar  { padding: 0 14px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Top bar ── -->
+<div class="topbar">
+  <a class="topbar-brand" href="index.html">✦ Via</a>
+
+  <div class="topbar-right">
+    <!-- Menu -->
+    <div class="menu-wrap">
+      <button class="menu-btn" id="menu-toggle" onclick="toggleMenu()">
+        <span data-lang="zh">菜单</span>
+        <span data-lang="en">Menu</span>
+        ▾
+      </button>
+      <div class="dropdown" id="dropdown">
+        <a href="index.html">
+          <span>🏠</span>
+          <span data-lang="zh">返回主页</span>
+          <span data-lang="en">Home</span>
+        </a>
+        <a href="index.html#features">
+          <span>✨</span>
+          <span data-lang="zh">功能介绍</span>
+          <span data-lang="en">Features</span>
+        </a>
+        <a href="index.html#support">
+          <span>💬</span>
+          <span data-lang="zh">常见问题</span>
+          <span data-lang="en">FAQ & Support</span>
+        </a>
+        <a href="index.html#contact">
+          <span>✉️</span>
+          <span data-lang="zh">联系我们</span>
+          <span data-lang="en">Contact</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Language toggle -->
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="btn-zh" onclick="setLang('zh-Hans')">中文</button>
+      <button class="lang-btn"        id="btn-en" onclick="setLang('en')">English</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Main ── -->
+<div class="container">
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-icon">🔒</div>
+
+    <div data-lang="zh">
+      <h1>Via 隐私政策</h1>
+      <p class="meta">作者：Peter Chang &nbsp;·&nbsp; 最后更新：2026年6月4日</p>
+    </div>
+    <div data-lang="en">
+      <h1>Via Privacy Policy</h1>
+      <p class="meta">Author: Peter Chang &nbsp;·&nbsp; Last updated: June 4, 2026</p>
+    </div>
+  </div>
+
+  <!-- 1. Overview -->
+  <div class="section">
+    <div data-lang="zh">
+      <h2><span class="icon">📋</span> 概述</h2>
+      <p>Via 是一款本地优先的 AI 日记与个人复盘 App。我们深知日记是极其私密的内容，因此 Via 的设计原则是：<strong>所有数据默认留在你的设备上</strong>，不上传到任何服务器，不建立任何用户账户。</p>
+      <div class="highlight">
+        Via 没有后端服务器、没有账号系统、不收集任何可识别个人身份的信息。你的日记只属于你。
+      </div>
+    </div>
+    <div data-lang="en">
+      <h2><span class="icon">📋</span> Overview</h2>
+      <p>Via is a local-first AI journaling and personal reflection app. We understand that journaling is deeply personal. Via is designed so that <strong>all your data stays on your device by default</strong> — nothing is uploaded to any server, and no user accounts are created.</p>
+      <div class="highlight">
+        Via has no backend servers, no account system, and collects no personally identifiable information. Your journal belongs only to you.
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Data collected -->
+  <div class="section">
+    <div data-lang="zh">
+      <h2><span class="icon">📦</span> 我们收集哪些数据</h2>
+      <p>Via 只在你的设备本地存储以下内容，所有数据均保存于 iOS 的 SwiftData 数据库或 UserDefaults 中：</p>
+      <table class="data-table">
+        <tr>
+          <th>数据类型</th>
+          <th>存储位置</th>
+          <th>说明</th>
+        </tr>
+        <tr>
+          <td>日记内容</td>
+          <td><span class="tag">本地</span></td>
+          <td>每日 4 个复盘问题的文字内容及富文本归档</td>
+        </tr>
+        <tr>
+          <td>照片/图片</td>
+          <td><span class="tag">本地</span></td>
+          <td>插入日记的照片以二进制形式存储在本地数据库</td>
+        </tr>
+        <tr>
+          <td>AI 生成内容</td>
+          <td><span class="tag">本地</span></td>
+          <td>日反馈、周/月/季/年总结，仅存本地</td>
+        </tr>
+        <tr>
+          <td>App 偏好设置</td>
+          <td><span class="tag">本地</span></td>
+          <td>语言、提醒时间、AI 开关、自动锁定时长等</td>
+        </tr>
+        <tr>
+          <td>连续打卡记录</td>
+          <td><span class="tag">本地</span></td>
+          <td>连续天数、累计天数，存于 UserDefaults</td>
+        </tr>
+      </table>
+      <p style="margin-top:14px;"><strong>我们不收集：</strong>设备标识符、IP 地址、位置信息、联系人、崩溃日志（不上传至任何平台）、广告标识符（IDFA）等任何可识别个人身份的数据。</p>
+    </div>
+    <div data-lang="en">
+      <h2><span class="icon">📦</span> What Data We Collect</h2>
+      <p>Via only stores the following data locally on your device, within iOS's SwiftData database or UserDefaults:</p>
+      <table class="data-table">
+        <tr>
+          <th>Data Type</th>
+          <th>Storage</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>Journal content</td>
+          <td><span class="tag">Local only</span></td>
+          <td>Text and rich-text archives for the 4 daily reflection prompts</td>
+        </tr>
+        <tr>
+          <td>Photos / images</td>
+          <td><span class="tag">Local only</span></td>
+          <td>Photos inserted into entries, stored as binary data in the local database</td>
+        </tr>
+        <tr>
+          <td>AI-generated content</td>
+          <td><span class="tag">Local only</span></td>
+          <td>Daily feedback, weekly/monthly/quarterly/annual summaries</td>
+        </tr>
+        <tr>
+          <td>App preferences</td>
+          <td><span class="tag">Local only</span></td>
+          <td>Language, reminder time, AI toggle, auto-lock duration, etc.</td>
+        </tr>
+        <tr>
+          <td>Streak data</td>
+          <td><span class="tag">Local only</span></td>
+          <td>Consecutive days and total days recorded, stored in UserDefaults</td>
+        </tr>
+      </table>
+      <p style="margin-top:14px;"><strong>We do not collect:</strong> device identifiers, IP addresses, location data, contacts, crash logs (not sent anywhere), advertising identifiers (IDFA), or any personally identifiable information.</p>
+    </div>
+  </div>
+
+  <!-- 3. AI -->
+  <div class="section">
+    <div data-lang="zh">
+      <h2><span class="icon">🤖</span> AI 功能与数据处理</h2>
+      <p>Via 的 AI 功能优先使用 <strong>Apple Foundation Models</strong>，这是苹果提供的完全在设备端运行的本地大语言模型。</p>
+      <ul>
+        <li>AI 推理在你的设备本地完成，你的日记内容<strong>不会发送到任何外部服务器</strong>。</li>
+        <li>当设备不支持 Apple Foundation Models 时，Via 使用内置模板生成内容，同样不涉及网络请求。</li>
+        <li>AI 生成的日反馈和各周期总结均以 JSON 格式保存在本地数据库。</li>
+      </ul>
+      <div class="highlight">
+        Via 不使用 OpenAI、Google、Anthropic 或任何第三方云端 AI 服务。
+      </div>
+    </div>
+    <div data-lang="en">
+      <h2><span class="icon">🤖</span> AI Features &amp; Data Processing</h2>
+      <p>Via's AI features prioritize <strong>Apple Foundation Models</strong> — Apple's on-device large language model that runs entirely locally.</p>
+      <ul>
+        <li>AI inference runs on your device. Your journal content is <strong>never sent to any external server</strong>.</li>
+        <li>When Apple Foundation Models are unavailable on a device, Via uses built-in templates to generate content — no network requests are made.</li>
+        <li>AI-generated daily feedback and periodic summaries are stored in JSON format in the local database.</li>
+      </ul>
+      <div class="highlight">
+        Via does not use OpenAI, Google, Anthropic, or any third-party cloud AI service.
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Permissions -->
+  <div class="section">
+    <div data-lang="zh">
+      <h2><span class="icon">🔑</span> 系统权限说明</h2>
+      <p>Via 仅在你主动使用相关功能时请求以下系统权限：</p>
+      <table class="data-table">
+        <tr>
+          <th>权限</th>
+          <th>用途</th>
+          <th>是否必须</th>
+        </tr>
+        <tr>
+          <td>📸 照片库</td>
+          <td>向日记中插入照片</td>
+          <td><span class="tag">可选</span></td>
+        </tr>
+        <tr>
+          <td>🎤 麦克风 / 语音识别</td>
+          <td>语音输入日记内容</td>
+          <td><span class="tag">可选</span></td>
+        </tr>
+        <tr>
+          <td>🔔 通知</td>
+          <td>每日复盘提醒（本地通知，不经网络）</td>
+          <td><span class="tag">可选</span></td>
+        </tr>
+        <tr>
+          <td>👤 Face ID / Touch ID</td>
+          <td>App 锁定与解锁</td>
+          <td><span class="tag">可选</span></td>
+        </tr>
+      </table>
+      <p style="margin-top:14px;">你可以随时在 iOS 设置中撤销以上任意权限。撤销权限不会导致已保存的日记丢失。</p>
+    </div>
+    <div data-lang="en">
+      <h2><span class="icon">🔑</span> System Permissions</h2>
+      <p>Via only requests the following system permissions when you actively use the corresponding feature:</p>
+      <table class="data-table">
+        <tr>
+          <th>Permission</th>
+          <th>Purpose</th>
+          <th>Required?</th>
+        </tr>
+        <tr>
+          <td>📸 Photo Library</td>
+          <td>Insert photos into journal entries</td>
+          <td><span class="tag">Optional</span></td>
+        </tr>
+        <tr>
+          <td>🎤 Microphone / Speech Recognition</td>
+          <td>Voice input for journal content</td>
+          <td><span class="tag">Optional</span></td>
+        </tr>
+        <tr>
+          <td>🔔 Notifications</td>
+          <td>Daily reflection reminders (local only, no network)</td>
+          <td><span class="tag">Optional</span></td>
+        </tr>
+        <tr>
+          <td>👤 Face ID / Touch ID</td>
+          <td>App lock and unlock</td>
+          <td><span class="tag">Optional</span></td>
+        </tr>
+      </table>
+      <p style="margin-top:14px;">You can revoke any of these permissions at any time in iOS Settings. Revoking a permission will not cause any saved journal entries to be lost.</p>
+    </div>
+  </div>
+
+  <!-- 5. Data sharing -->
+  <div class="section">
+    <div data-lang="zh">
+      <h2><span class="icon">🤝</span> 数据共享与第三方</h2>
+      <p>Via <strong>不与任何第三方共享、出售或披露</strong>你的个人数据。具体来说：</p>
+      <ul>
+        <li>Via 不集成任何第三方分析 SDK（如 Firebase、Mixpanel、Amplitude 等）。</li>
+        <li>Via 不集成任何广告网络或追踪器。</li>
+        <li>Via 不使用任何第三方崩溃收集服务（如 Crashlytics、Sentry 等）。</li>
+        <li>Via 不通过 iCloud 或其他云存储服务同步数据。</li>
+      </ul>
+      <p>唯一涉及数据离开设备的情形，是你<strong>主动选择导出数据</strong>（Markdown、CSV、JSON）并通过 iOS 系统分享面板分享至你自己选择的目标。</p>
+    </div>
+    <div data-lang="en">
+      <h2><span class="icon">🤝</span> Data Sharing &amp; Third Parties</h2>
+      <p>Via <strong>does not share, sell, or disclose</strong> your personal data with any third party. Specifically:</p>
+      <ul>
+        <li>Via does not integrate any third-party analytics SDKs (e.g. Firebase, Mixpanel, Amplitude).</li>
+        <li>Via does not integrate any advertising networks or trackers.</li>
+        <li>Via does not use any third-party crash reporting services (e.g. Crashlytics, Sentry).</li>
+        <li>Via does not sync data via iCloud or any other cloud storage service.</li>
+      </ul>
+      <p>The only scenario in which data leaves your device is when <strong>you actively choose to export</strong> (Markdown, CSV, JSON) and share it via the iOS system share sheet to a destination you select.</p>
+    </div>
+  </div>
+
+  <!-- 6. Data retention -->
+  <div class="section">
+    <div data-lang="zh">
+      <h2><span class="icon">🗄️</span> 数据保留与删除</h2>
+      <p>你对 Via 中的所有数据拥有完全控制权：</p>
+      <ul>
+        <li><strong>删除单条日记</strong>：在历史页面，滑动或长按单条记录即可删除。</li>
+        <li><strong>删除全部数据</strong>：前往「设置 → 删除所有数据」，确认后将清除所有日记、总结和 AI 内容。</li>
+        <li><strong>卸载 App</strong>：卸载 Via 将从设备上完全删除所有本地数据。由于没有云端备份，卸载前请先导出完整备份（JSON）。</li>
+      </ul>
+    </div>
+    <div data-lang="en">
+      <h2><span class="icon">🗄️</span> Data Retention &amp; Deletion</h2>
+      <p>You have full control over all data in Via:</p>
+      <ul>
+        <li><strong>Delete a single entry</strong>: In the History tab, swipe or long-press an entry to delete it.</li>
+        <li><strong>Delete all data</strong>: Go to Settings → Delete All Data. After confirmation, all journals, summaries, and AI content will be erased.</li>
+        <li><strong>Uninstall the app</strong>: Uninstalling Via permanently removes all local data from your device. Since there is no cloud backup, please export a full backup (JSON) before uninstalling.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 7. Children -->
+  <div class="section">
+    <div data-lang="zh">
+      <h2><span class="icon">👶</span> 儿童隐私</h2>
+      <p>Via 不面向 13 岁以下儿童设计。我们不会故意收集儿童的个人信息。如果你认为你的孩子在使用 Via 并有隐私方面的顾虑，请通过下方联系方式与我们联系。</p>
+    </div>
+    <div data-lang="en">
+      <h2><span class="icon">👶</span> Children's Privacy</h2>
+      <p>Via is not designed for children under the age of 13. We do not knowingly collect personal information from children. If you believe your child is using Via and you have privacy concerns, please contact us using the information below.</p>
+    </div>
+  </div>
+
+  <!-- 8. Your rights -->
+  <div class="section">
+    <div data-lang="zh">
+      <h2><span class="icon">⚖️</span> 你的权利</h2>
+      <p>由于 Via 不收集任何服务器端数据，你对数据的控制权完全掌握在自己手中：</p>
+      <ul>
+        <li><strong>访问权</strong>：你可以随时在 App 内查看所有历史日记和总结。</li>
+        <li><strong>导出权</strong>：你可以将所有数据导出为 Markdown、CSV、纯文本或完整 JSON 备份。</li>
+        <li><strong>删除权</strong>：你可以删除单条记录或全部数据。</li>
+        <li><strong>更正权</strong>：你可以随时编辑历史日记。</li>
+      </ul>
+    </div>
+    <div data-lang="en">
+      <h2><span class="icon">⚖️</span> Your Rights</h2>
+      <p>Because Via collects no server-side data, full control over your data rests entirely with you:</p>
+      <ul>
+        <li><strong>Right to access</strong>: You can view all past journals and summaries at any time within the app.</li>
+        <li><strong>Right to export</strong>: You can export all your data as Markdown, CSV, plain text, or a full JSON backup.</li>
+        <li><strong>Right to delete</strong>: You can delete individual entries or all data at any time.</li>
+        <li><strong>Right to correct</strong>: You can edit any past journal entry at any time.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 9. Changes -->
+  <div class="section">
+    <div data-lang="zh">
+      <h2><span class="icon">📝</span> 隐私政策变更</h2>
+      <p>如果本隐私政策发生实质性变更，我们将在 App 更新说明中告知，并更新本页顶部的「最后更新」日期。继续使用 Via 即表示你接受更新后的政策。</p>
+    </div>
+    <div data-lang="en">
+      <h2><span class="icon">📝</span> Changes to This Policy</h2>
+      <p>If this Privacy Policy changes materially, we will notify you in the App Store release notes and update the "Last updated" date at the top of this page. Continued use of Via after changes take effect constitutes your acceptance of the updated policy.</p>
+    </div>
+  </div>
+
+  <!-- 10. Contact -->
+  <div class="section">
+    <div data-lang="zh">
+      <h2><span class="icon">✉️</span> 联系我们</h2>
+      <p>如有关于本隐私政策的任何疑问或隐私相关请求，请联系：</p>
+      <div class="contact-card">
+        <div class="avatar">👤</div>
+        <div>
+          <div class="name">Peter Chang</div>
+          <div class="email">Via 开发者</div>
+          <div class="email"><a href="mailto:via@peter-chang.net">via@peter-chang.net</a></div>
+        </div>
+      </div>
+      <p style="margin-top:14px; font-size:14px; color:var(--secondary);">我们将在收到你的邮件后 72 小时内回复。</p>
+    </div>
+    <div data-lang="en">
+      <h2><span class="icon">✉️</span> Contact Us</h2>
+      <p>If you have any questions about this Privacy Policy or privacy-related requests, please contact:</p>
+      <div class="contact-card">
+        <div class="avatar">👤</div>
+        <div>
+          <div class="name">Peter Chang</div>
+          <div class="email">Via Developer</div>
+          <div class="email"><a href="mailto:via@peter-chang.net">via@peter-chang.net</a></div>
+        </div>
+      </div>
+      <p style="margin-top:14px; font-size:14px; color:var(--secondary);">We will respond within 72 hours of receiving your message.</p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <span data-lang="zh">© 2026 Peter Chang · Via App · 保留所有权利</span>
+    <span data-lang="en">© 2026 Peter Chang · Via App · All rights reserved</span>
+  </footer>
+
+</div>
+
+<script>
+  function setLang(lang) {
+    document.documentElement.lang = lang;
+    document.getElementById('btn-zh').classList.toggle('active', lang === 'zh-Hans');
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    localStorage.setItem('via-lang', lang);
+  }
+
+  function toggleMenu() {
+    document.getElementById('dropdown').classList.toggle('open');
+  }
+  document.addEventListener('click', function(e) {
+    const wrap = document.querySelector('.menu-wrap');
+    if (wrap && !wrap.contains(e.target)) {
+      document.getElementById('dropdown').classList.remove('open');
+    }
+  });
+
+  // Auto-detect language
+  (function () {
+    const saved = localStorage.getItem('via-lang');
+    const browserLang = navigator.language || navigator.userLanguage || 'zh';
+    const lang = saved || (browserLang.startsWith('zh') ? 'zh-Hans' : 'en');
+    setLang(lang);
+  })();
+</script>
+
+</body>
+</html>

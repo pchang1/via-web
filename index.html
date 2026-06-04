@@ -1,0 +1,1364 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Via · 每天记录一点，长期看见自己的节奏。本地优先的 AI 日记 App。" />
+  <meta name="theme-color" content="#f5f1ec" />
+  <title>Via · 私人日记与复盘</title>
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Via · 私人日记与复盘" />
+  <meta property="og:description" content="每天记录一点，长期看见自己的节奏。本地优先，AI 加持，完全私密。" />
+  <meta property="og:type" content="website" />
+
+  <style>
+    /* ─────────────────────────── Reset & Tokens ─────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #f5f1ec;
+      --bg2:       #ede8e1;
+      --card:      #ffffff;
+      --primary:   #3d2c1e;
+      --secondary: #8a7060;
+      --accent:    #7c5c3e;
+      --accent2:   #a07850;
+      --border:    #e8e0d8;
+      --tag-bg:    #ede8e2;
+      --radius:    16px;
+      --shadow:    0 2px 16px rgba(60,40,20,0.08);
+      --shadow-lg: 0 8px 40px rgba(60,40,20,0.13);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+                   "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      background: var(--bg);
+      color: var(--primary);
+      line-height: 1.75;
+      overflow-x: hidden;
+    }
+
+    /* ─────────────────────────── Top bar ─────────────────────────── */
+    .topbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 28px;
+      background: rgba(245,241,236,0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(232,224,216,0.7);
+    }
+
+    .topbar-brand {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--accent);
+      letter-spacing: -0.4px;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Menu button */
+    .menu-wrap { position: relative; }
+
+    .menu-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      background: var(--tag-bg);
+      border: none;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--secondary);
+      cursor: pointer;
+      transition: background 0.18s;
+    }
+    .menu-btn:hover { background: var(--border); }
+
+    .dropdown {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: calc(100% + 8px);
+      min-width: 180px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      z-index: 300;
+    }
+    .dropdown.open { display: block; }
+
+    .dropdown a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      font-size: 14px;
+      color: var(--primary);
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+    .dropdown a:hover { background: var(--tag-bg); }
+    .dropdown a + a   { border-top: 1px solid var(--border); }
+    .dropdown .icon   { font-size: 16px; }
+
+    /* Language toggle */
+    .lang-toggle {
+      display: flex;
+      gap: 3px;
+      background: var(--tag-bg);
+      border-radius: 20px;
+      padding: 3px;
+    }
+    .lang-btn {
+      padding: 4px 13px;
+      border: none;
+      border-radius: 16px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      background: transparent;
+      color: var(--secondary);
+      transition: all 0.2s;
+    }
+    .lang-btn.active {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    /* ─────────────────────────── Language switching ─────────────────────────── */
+    [data-lang]      { display: none; }
+    html[lang="zh-Hans"] [data-lang="zh"] { display: block; }
+    html[lang="en"]      [data-lang="en"] { display: block; }
+
+    span[data-lang]  { display: none; }
+    html[lang="zh-Hans"] span[data-lang="zh"] { display: inline; }
+    html[lang="en"]      span[data-lang="en"] { display: inline; }
+
+    /* ─────────────────────────── Hero ─────────────────────────── */
+    .hero {
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 100px 24px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Subtle radial glow */
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(124,92,62,0.10) 0%, transparent 70%);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -55%);
+      pointer-events: none;
+    }
+
+    .hero-icon-wrap {
+      position: relative;
+      width: 96px; height: 96px;
+      margin-bottom: 28px;
+    }
+
+    .hero-icon-bg {
+      width: 96px; height: 96px;
+      border-radius: 22px;          /* iOS icon corner radius */
+      box-shadow: 0 8px 32px rgba(124,92,62,0.28), 0 2px 8px rgba(0,0,0,0.10);
+      overflow: hidden;
+      display: block;
+    }
+    .hero-icon-bg img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .hero-sparkle {
+      position: absolute;
+      color: var(--accent2);
+      font-size: 14px;
+      animation: sparkle-pulse 3s ease-in-out infinite;
+    }
+    .hero-sparkle.s1 { top: -4px;  right: -8px;  animation-delay: 0s; }
+    .hero-sparkle.s2 { bottom: 2px; left: -10px;  animation-delay: 1s; }
+    .hero-sparkle.s3 { top: 20px;  left: -14px;   animation-delay: 2s; }
+
+    @keyframes sparkle-pulse {
+      0%, 100% { opacity: 0.3; transform: scale(0.8); }
+      50%       { opacity: 1;   transform: scale(1.1); }
+    }
+
+    .hero-via {
+      font-size: 72px;
+      font-weight: 900;
+      letter-spacing: -3px;
+      line-height: 1;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 60%, #c09a70 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 8px;
+    }
+
+    .hero-tagline {
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 12px;
+      letter-spacing: -0.3px;
+    }
+
+    .hero-sub {
+      font-size: 16px;
+      color: var(--secondary);
+      max-width: 420px;
+      margin: 0 auto 36px;
+      line-height: 1.7;
+    }
+
+    .hero-cta-row {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 50px;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      box-shadow: 0 4px 20px rgba(124,92,62,0.3);
+      transition: all 0.2s;
+    }
+    .btn-primary:hover {
+      background: var(--accent2);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 24px rgba(124,92,62,0.35);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      background: var(--card);
+      color: var(--accent);
+      border: 1.5px solid var(--border);
+      border-radius: 50px;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-secondary:hover {
+      background: var(--tag-bg);
+      transform: translateY(-1px);
+    }
+
+    .hero-badge-row {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 40px;
+    }
+
+    .hero-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--secondary);
+    }
+    .hero-badge .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: 0.5;
+    }
+
+    /* ─────────────────────────── Section wrapper ─────────────────────────── */
+    section {
+      padding: 80px 24px;
+    }
+
+    section + section {
+      border-top: 1px solid var(--border);
+    }
+
+    .section-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.8px;
+      color: var(--primary);
+      margin-bottom: 14px;
+      line-height: 1.2;
+    }
+
+    .section-sub {
+      font-size: 16px;
+      color: var(--secondary);
+      max-width: 520px;
+      line-height: 1.7;
+    }
+
+    /* ─────────────────────────── Philosophy ─────────────────────────── */
+    .philosophy-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-top: 48px;
+    }
+
+    .philo-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .philo-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .philo-icon {
+      font-size: 32px;
+      margin-bottom: 14px;
+    }
+
+    .philo-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+
+    .philo-desc {
+      font-size: 14px;
+      color: var(--secondary);
+      line-height: 1.65;
+    }
+
+    /* ─────────────────────────── How it works ─────────────────────────── */
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .step {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .step-num {
+      flex-shrink: 0;
+      width: 40px; height: 40px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .step-body { flex: 1; }
+
+    .step-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 6px;
+    }
+
+    .step-desc {
+      font-size: 14px;
+      color: var(--secondary);
+      line-height: 1.65;
+    }
+
+    /* ─────────────────────────── Features grid ─────────────────────────── */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+      margin-top: 48px;
+    }
+
+    .feature-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 22px 20px;
+      box-shadow: var(--shadow);
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      transition: transform 0.18s;
+    }
+    .feature-card:hover { transform: translateY(-2px); }
+
+    .feature-icon-wrap {
+      flex-shrink: 0;
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #e8ddd3 0%, #d4c4b4 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .feature-text-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 4px;
+    }
+
+    .feature-text-desc {
+      font-size: 13px;
+      color: var(--secondary);
+      line-height: 1.6;
+    }
+
+    /* ─────────────────────────── AI section ─────────────────────────── */
+    .ai-section { background: var(--bg2); }
+
+    .ai-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
+      margin-top: 48px;
+    }
+
+    .ai-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+
+    .ai-card-icon { font-size: 28px; margin-bottom: 12px; }
+
+    .ai-card-period {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 6px;
+    }
+
+    .ai-card-desc {
+      font-size: 13px;
+      color: var(--secondary);
+      line-height: 1.55;
+    }
+
+    .ai-title-example {
+      background: var(--tag-bg);
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin-top: 32px;
+    }
+
+    .ai-title-example p {
+      font-size: 14px;
+      color: var(--secondary);
+      margin-bottom: 12px;
+    }
+
+    .example-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+      color: var(--primary);
+    }
+    .example-item:last-child { border-bottom: none; }
+    .example-item .dot { color: var(--accent); font-size: 10px; }
+
+    /* ─────────────────────────── Privacy spotlight ─────────────────────────── */
+    .privacy-highlight {
+      background: linear-gradient(135deg, #3d2c1e 0%, #5a3f2b 100%);
+      border-radius: 24px;
+      padding: 56px 40px;
+      text-align: center;
+      margin-top: 48px;
+    }
+
+    .privacy-highlight h3 {
+      font-size: 26px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 14px;
+      letter-spacing: -0.4px;
+    }
+
+    .privacy-highlight p {
+      font-size: 15px;
+      color: rgba(255,255,255,0.7);
+      max-width: 420px;
+      margin: 0 auto 28px;
+      line-height: 1.7;
+    }
+
+    .privacy-pills {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .pill {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.9);
+    }
+
+    /* ─────────────────────────── Support / FAQ ─────────────────────────── */
+    .faq-list {
+      margin-top: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .faq-item {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .faq-q {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 22px;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--primary);
+      cursor: pointer;
+      user-select: none;
+      gap: 12px;
+    }
+
+    .faq-q:hover { background: var(--tag-bg); }
+
+    .faq-chevron {
+      flex-shrink: 0;
+      font-size: 11px;
+      color: var(--secondary);
+      transition: transform 0.2s;
+    }
+
+    .faq-a {
+      display: none;
+      padding: 0 22px 18px;
+      font-size: 14px;
+      color: var(--secondary);
+      line-height: 1.7;
+      border-top: 1px solid var(--border);
+      padding-top: 14px;
+    }
+
+    .faq-item.open .faq-a     { display: block; }
+    .faq-item.open .faq-chevron { transform: rotate(180deg); }
+
+    /* ─────────────────────────── Contact ─────────────────────────── */
+    .contact-section { background: var(--bg2); }
+
+    .contact-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 32px;
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      max-width: 480px;
+      margin-top: 40px;
+    }
+
+    .contact-avatar {
+      width: 60px; height: 60px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #e8ddd3 0%, #d4c4b4 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      flex-shrink: 0;
+    }
+
+    .contact-name {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 2px;
+    }
+
+    .contact-role {
+      font-size: 13px;
+      color: var(--secondary);
+      margin-bottom: 8px;
+    }
+
+    .contact-email {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--accent);
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .contact-email:hover { text-decoration: underline; }
+
+    .response-note {
+      font-size: 13px;
+      color: var(--secondary);
+      margin-top: 20px;
+    }
+
+    /* ─────────────────────────── Footer ─────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 24px;
+      text-align: center;
+    }
+
+    .footer-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .footer-links a {
+      font-size: 13px;
+      color: var(--secondary);
+      text-decoration: none;
+    }
+    .footer-links a:hover { color: var(--accent); }
+
+    .footer-copy {
+      font-size: 12px;
+      color: var(--secondary);
+      opacity: 0.7;
+    }
+
+    /* ─────────────────────────── Scroll fade-in ─────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ─────────────────────────── Responsive ─────────────────────────── */
+    @media (max-width: 600px) {
+      .hero-via { font-size: 52px; letter-spacing: -2px; }
+      .hero-tagline { font-size: 18px; }
+      .section-title { font-size: 26px; }
+      .topbar { padding: 0 16px; }
+      .privacy-highlight { padding: 36px 20px; }
+      .contact-card { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── Top bar ─── -->
+<div class="topbar">
+  <a class="topbar-brand" href="#">✦ Via</a>
+
+  <div class="topbar-right">
+
+    <!-- Menu -->
+    <div class="menu-wrap">
+      <button class="menu-btn" id="menu-toggle" onclick="toggleMenu()">
+        <span data-lang="zh">菜单</span>
+        <span data-lang="en">Menu</span>
+        ▾
+      </button>
+      <div class="dropdown" id="dropdown">
+        <a href="#features">
+          <span class="icon">✨</span>
+          <span data-lang="zh">功能介绍</span>
+          <span data-lang="en">Features</span>
+        </a>
+        <a href="#support">
+          <span class="icon">💬</span>
+          <span data-lang="zh">常见问题</span>
+          <span data-lang="en">FAQ & Support</span>
+        </a>
+        <a href="#contact">
+          <span class="icon">✉️</span>
+          <span data-lang="zh">联系我们</span>
+          <span data-lang="en">Contact</span>
+        </a>
+        <a href="privacy-policy.html">
+          <span class="icon">🔒</span>
+          <span data-lang="zh">隐私政策</span>
+          <span data-lang="en">Privacy Policy</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Language toggle -->
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="btn-zh" onclick="setLang('zh-Hans')">中文</button>
+      <button class="lang-btn"        id="btn-en" onclick="setLang('en')">English</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ─── Hero ─── -->
+<section class="hero">
+  <div class="hero-icon-wrap">
+    <div class="hero-icon-bg">
+      <img src="AppIcon.png" alt="Via App Icon" />
+    </div>
+    <span class="hero-sparkle s1">✦</span>
+    <span class="hero-sparkle s2">✦</span>
+    <span class="hero-sparkle s3">·</span>
+  </div>
+
+  <div class="hero-via">Via</div>
+
+  <div data-lang="zh">
+    <p class="hero-tagline">每天记录一点，长期看见自己的节奏</p>
+    <p class="hero-sub">私密、低负担的 AI 日记 App。你的故事只属于你，数据永远留在设备上。</p>
+    <div class="hero-cta-row">
+      <a href="#" class="btn-primary">
+        <span>⬇</span> App Store 下载
+      </a>
+      <a href="#features" class="btn-secondary">了解功能</a>
+    </div>
+  </div>
+  <div data-lang="en">
+    <p class="hero-tagline">A little every day. See yourself over time.</p>
+    <p class="hero-sub">A private, low-friction AI journal app. Your stories belong only to you — data stays on your device, always.</p>
+    <div class="hero-cta-row">
+      <a href="#" class="btn-primary">
+        <span>⬇</span> Download on App Store
+      </a>
+      <a href="#features" class="btn-secondary">See Features</a>
+    </div>
+  </div>
+
+  <div class="hero-badge-row">
+    <div class="hero-badge"><div class="dot"></div><span data-lang="zh">完全本地存储</span><span data-lang="en">Fully local storage</span></div>
+    <div class="hero-badge"><div class="dot"></div><span data-lang="zh">设备端 AI</span><span data-lang="en">On-device AI</span></div>
+    <div class="hero-badge"><div class="dot"></div><span data-lang="zh">无账号 · 无追踪</span><span data-lang="en">No account · No tracking</span></div>
+    <div class="hero-badge"><div class="dot"></div><span data-lang="zh">中英双语</span><span data-lang="en">Chinese & English</span></div>
+  </div>
+</section>
+
+
+<!-- ─── Philosophy ─── -->
+<section>
+  <div class="section-inner">
+    <div data-lang="zh">
+      <p class="section-label">设计理念</p>
+      <h2 class="section-title">做少，但做得深</h2>
+      <p class="section-sub">Via 不是一款要你打卡、攒成就的 App。它只是一个安静的地方，让你每天停下来一会儿，写下真实的自己。</p>
+    </div>
+    <div data-lang="en">
+      <p class="section-label">Philosophy</p>
+      <h2 class="section-title">Do less. Feel more.</h2>
+      <p class="section-sub">Via isn't an app that rewards streaks or gamifies your habits. It's a quiet place to pause each day and write something true about yourself.</p>
+    </div>
+
+    <div class="philosophy-grid">
+      <div class="philo-card reveal">
+        <div class="philo-icon">🔒</div>
+        <div data-lang="zh">
+          <p class="philo-title">私密第一</p>
+          <p class="philo-desc">所有数据存在你的设备上。没有服务器，没有账号，没有任何人能看到你写的内容。</p>
+        </div>
+        <div data-lang="en">
+          <p class="philo-title">Privacy first</p>
+          <p class="philo-desc">All data lives on your device. No servers, no accounts, no one else can ever read what you write.</p>
+        </div>
+      </div>
+      <div class="philo-card reveal">
+        <div class="philo-icon">🌱</div>
+        <div data-lang="zh">
+          <p class="philo-title">低负担</p>
+          <p class="philo-desc">4 个问题，几分钟完成。没有强制连续打卡，漏了也没关系，随时可以回来。</p>
+        </div>
+        <div data-lang="en">
+          <p class="philo-title">Low friction</p>
+          <p class="philo-desc">Four prompts, a few minutes. No mandatory streaks — missed a day? That's fine. Come back whenever.</p>
+        </div>
+      </div>
+      <div class="philo-card reveal">
+        <div class="philo-icon">🤖</div>
+        <div data-lang="zh">
+          <p class="philo-title">AI 在本地</p>
+          <p class="philo-desc">使用 Apple 设备端大模型分析你的记录，日记内容不会离开你的手机半步。</p>
+        </div>
+        <div data-lang="en">
+          <p class="philo-title">AI on your device</p>
+          <p class="philo-desc">Powered by Apple's on-device Foundation Models — your journal never leaves your phone to reach any AI server.</p>
+        </div>
+      </div>
+      <div class="philo-card reveal">
+        <div class="philo-icon">🌊</div>
+        <div data-lang="zh">
+          <p class="philo-title">长期陪伴</p>
+          <p class="philo-desc">周、月、季度、年度复盘帮你看见自己的成长轨迹，而不是孤立的某一天。</p>
+        </div>
+        <div data-lang="en">
+          <p class="philo-title">Long-term perspective</p>
+          <p class="philo-desc">Weekly, monthly, quarterly, and annual reflections help you see your growth over time — not just isolated days.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ─── How it works ─── -->
+<section style="background: var(--bg2);">
+  <div class="section-inner">
+    <div data-lang="zh">
+      <p class="section-label">使用流程</p>
+      <h2 class="section-title">三步开始，终生受益</h2>
+      <p class="section-sub">Via 的流程极度简单。你只需要每天花几分钟，剩下的交给时间。</p>
+    </div>
+    <div data-lang="en">
+      <p class="section-label">How it works</p>
+      <h2 class="section-title">Start in minutes. Benefit for years.</h2>
+      <p class="section-sub">Via's flow is deliberately simple. Spend a few minutes each day — and let time do the rest.</p>
+    </div>
+
+    <div class="steps">
+      <div class="step reveal">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div data-lang="zh">
+            <p class="step-title">每天回答 4 个问题</p>
+            <p class="step-desc">今天最重要的产出是什么？什么浪费了你的时间？明天最想做什么？还有一段自由日记。支持富文本、照片和语音输入。</p>
+          </div>
+          <div data-lang="en">
+            <p class="step-title">Answer 4 daily prompts</p>
+            <p class="step-desc">What was your most important output? What drained your time? What do you most want to do tomorrow? Plus a free-form journal. Supports rich text, photos, and voice input.</p>
+          </div>
+        </div>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div data-lang="zh">
+            <p class="step-title">AI 提炼你的生活线索</p>
+            <p class="step-desc">完成当天记录后，Via 的 AI 会给你一条温和的日反馈。首页还会实时显示最近 7 条记录中提炼出的产出方向、时间模式和下一步意图。</p>
+          </div>
+          <div data-lang="en">
+            <p class="step-title">AI distills your life threads</p>
+            <p class="step-desc">After each entry, Via's AI gives you a gentle daily reflection. Your home screen also shows live patterns from your last 7 entries — output direction, time habits, next intentions.</p>
+          </div>
+        </div>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div data-lang="zh">
+            <p class="step-title">长期总结，看见自己</p>
+            <p class="step-desc">记录满 7 天后，Via 生成你的第一份周观察报告。之后按月、季度、年度持续复盘，每份总结都有 AI 提炼的暖心标题，像一位私人教练陪你回望。</p>
+          </div>
+          <div data-lang="en">
+            <p class="step-title">Periodic reflections reveal patterns</p>
+            <p class="step-desc">After 7 days, Via generates your first Weekly Observation. Monthly, quarterly, and annual summaries follow — each with an AI-crafted title that feels like a gentle coach reflecting back what you've done.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ─── Features ─── -->
+<section id="features">
+  <div class="section-inner">
+    <div data-lang="zh">
+      <p class="section-label">全部功能</p>
+      <h2 class="section-title">该有的都有，不该有的一个没有</h2>
+      <p class="section-sub">Via 专注于日记和复盘，没有社交、排行、积分或任何干扰你专注内心的功能。</p>
+    </div>
+    <div data-lang="en">
+      <p class="section-label">Features</p>
+      <h2 class="section-title">Everything you need. Nothing you don't.</h2>
+      <p class="section-sub">Via focuses on journaling and reflection — no social feeds, leaderboards, points, or anything that pulls your attention outward.</p>
+    </div>
+
+    <div class="feature-grid">
+      <div class="feature-card reveal">
+        <div class="feature-icon-wrap">📝</div>
+        <div>
+          <div data-lang="zh"><p class="feature-text-title">富文本日记</p><p class="feature-text-desc">支持加粗、斜体等文字格式，可以直接插入照片，记录更完整。</p></div>
+          <div data-lang="en"><p class="feature-text-title">Rich text journal</p><p class="feature-text-desc">Bold, italic, and inline photos — capture more than plain words.</p></div>
+        </div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon-wrap">🎤</div>
+        <div>
+          <div data-lang="zh"><p class="feature-text-title">语音输入</p><p class="feature-text-desc">按下麦克风，说出来，文字自动填入。触觉震动提示录音就绪。</p></div>
+          <div data-lang="en"><p class="feature-text-title">Voice input</p><p class="feature-text-desc">Tap the mic, speak, and text fills in automatically. Haptic feedback signals it's ready.</p></div>
+        </div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon-wrap">📅</div>
+        <div>
+          <div data-lang="zh"><p class="feature-text-title">历史与日历视图</p><p class="feature-text-desc">时间线浏览所有日记，切换日历视图一眼看清哪些天有记录。</p></div>
+          <div data-lang="en"><p class="feature-text-title">History & calendar view</p><p class="feature-text-desc">Browse your timeline or switch to calendar view to see your recording pattern at a glance.</p></div>
+        </div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon-wrap">🔍</div>
+        <div>
+          <div data-lang="zh"><p class="feature-text-title">全文搜索</p><p class="feature-text-desc">跨所有字段搜索历史记录，找到那条模糊记得的内容。</p></div>
+          <div data-lang="en"><p class="feature-text-title">Full-text search</p><p class="feature-text-desc">Search across all fields and all your entries to find that vaguely-remembered moment.</p></div>
+        </div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon-wrap">⭐</div>
+        <div>
+          <div data-lang="zh"><p class="feature-text-title">收藏与筛选</p><p class="feature-text-desc">收藏重要日记，按已完成、草稿、收藏快速筛选浏览。</p></div>
+          <div data-lang="en"><p class="feature-text-title">Favorites & filters</p><p class="feature-text-desc">Star important entries and filter by completed, draft, or favorited status instantly.</p></div>
+        </div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon-wrap">📤</div>
+        <div>
+          <div data-lang="zh"><p class="feature-text-title">导出与备份</p><p class="feature-text-desc">导出 Markdown、CSV、纯文本；完整 JSON 备份可恢复所有数据包括照片。</p></div>
+          <div data-lang="en"><p class="feature-text-title">Export & backup</p><p class="feature-text-desc">Export as Markdown, CSV, or plain text. Full JSON backup restores everything including photos.</p></div>
+        </div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon-wrap">🔔</div>
+        <div>
+          <div data-lang="zh"><p class="feature-text-title">每日提醒</p><p class="feature-text-desc">设置你的复盘时间，Via 发送本地通知提醒，完全不经过网络。</p></div>
+          <div data-lang="en"><p class="feature-text-title">Daily reminders</p><p class="feature-text-desc">Set your reflection time. Via sends local notifications — no network involved.</p></div>
+        </div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon-wrap">🔐</div>
+        <div>
+          <div data-lang="zh"><p class="feature-text-title">Face ID / Touch ID 锁定</p><p class="feature-text-desc">为 App 加一道生物识别锁，可设置自动锁定时长，保护隐私。</p></div>
+          <div data-lang="en"><p class="feature-text-title">Face ID / Touch ID lock</p><p class="feature-text-desc">Add biometric protection with a configurable auto-lock timeout to guard your private thoughts.</p></div>
+        </div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon-wrap">🌐</div>
+        <div>
+          <div data-lang="zh"><p class="feature-text-title">中英文双语</p><p class="feature-text-desc">自动跟随 iOS 系统语言，也可在设置中手动切换。AI 内容跟随语言。</p></div>
+          <div data-lang="en"><p class="feature-text-title">Chinese & English</p><p class="feature-text-desc">Auto-matches your iOS language. Switch manually in Settings. AI content follows your language too.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ─── AI Summaries ─── -->
+<section class="ai-section">
+  <div class="section-inner">
+    <div data-lang="zh">
+      <p class="section-label">AI 总结</p>
+      <h2 class="section-title">时间越长，洞察越深</h2>
+      <p class="section-sub">Via 的 AI 会在每个周期结束后，对你这段时间的记录做整体观察，生成一份温和的个人报告。</p>
+    </div>
+    <div data-lang="en">
+      <p class="section-label">AI Summaries</p>
+      <h2 class="section-title">The longer you use it, the deeper it sees.</h2>
+      <p class="section-sub">Via's AI reflects on your records at the end of each period, generating a gentle personal observation report.</p>
+    </div>
+
+    <div class="ai-cards">
+      <div class="ai-card reveal">
+        <div class="ai-card-icon">📆</div>
+        <div data-lang="zh"><p class="ai-card-period">每日</p><p class="ai-card-desc">完成当天记录后，即时生成一条私人 AI 观察反馈。</p></div>
+        <div data-lang="en"><p class="ai-card-period">Daily</p><p class="ai-card-desc">After each entry, a personal AI observation is generated immediately.</p></div>
+      </div>
+      <div class="ai-card reveal">
+        <div class="ai-card-icon">📊</div>
+        <div data-lang="zh"><p class="ai-card-period">每周</p><p class="ai-card-desc">7 天结束后，一份整体观察让你看见这一周的节奏。</p></div>
+        <div data-lang="en"><p class="ai-card-period">Weekly</p><p class="ai-card-desc">At the end of 7 days, a holistic reflection reveals the week's rhythm.</p></div>
+      </div>
+      <div class="ai-card reveal">
+        <div class="ai-card-icon">🗓️</div>
+        <div data-lang="zh"><p class="ai-card-period">每月</p><p class="ai-card-desc">月度复盘识别当月主题、能量高低和成长方向。</p></div>
+        <div data-lang="en"><p class="ai-card-period">Monthly</p><p class="ai-card-desc">Monthly review identifies themes, energy patterns, and direction of growth.</p></div>
+      </div>
+      <div class="ai-card reveal">
+        <div class="ai-card-icon">🌟</div>
+        <div data-lang="zh"><p class="ai-card-period">每季 / 每年</p><p class="ai-card-desc">更长跨度的视角，看见你在更大尺度上的变化与沉淀。</p></div>
+        <div data-lang="en"><p class="ai-card-period">Quarterly / Annual</p><p class="ai-card-desc">A wider lens to see how you've changed and what has settled over longer spans.</p></div>
+      </div>
+    </div>
+
+    <div class="ai-title-example reveal">
+      <div data-lang="zh">
+        <p>✦ AI 会为每份总结提炼一句暖心标题，例如：</p>
+        <div class="example-item"><span class="dot">✦</span> 2026年第23周 · 每一步小进展都值得被看见</div>
+        <div class="example-item"><span class="dot">✦</span> 2026年5月 · 把重要的事稳稳往前推</div>
+        <div class="example-item"><span class="dot">✦</span> 2026年第2季度 · 那些认真推进的事正在发光</div>
+      </div>
+      <div data-lang="en">
+        <p>✦ AI crafts a warm, personal title for each summary, for example:</p>
+        <div class="example-item"><span class="dot">✦</span> Week 23, 2026 · Every small step forward deserves to be seen</div>
+        <div class="example-item"><span class="dot">✦</span> May 2026 · Steadily pushing what matters most</div>
+        <div class="example-item"><span class="dot">✦</span> Q2 2026 · The things you worked on are starting to shine</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ─── Privacy spotlight ─── -->
+<section>
+  <div class="section-inner">
+    <div class="privacy-highlight reveal">
+      <div data-lang="zh">
+        <h3>你的日记，只有你能看</h3>
+        <p>Via 没有服务器账号，不使用任何云端 AI 服务，不集成任何第三方追踪 SDK。AI 推理完全在你的设备上完成。</p>
+      </div>
+      <div data-lang="en">
+        <h3>Your journal. Only yours.</h3>
+        <p>Via has no server accounts, uses no cloud AI services, and integrates zero third-party tracking SDKs. AI inference runs entirely on your device.</p>
+      </div>
+      <div class="privacy-pills">
+        <div class="pill">🔒 <span data-lang="zh">本地存储</span><span data-lang="en">Local storage</span></div>
+        <div class="pill">🤖 <span data-lang="zh">设备端 AI</span><span data-lang="en">On-device AI</span></div>
+        <div class="pill">🚫 <span data-lang="zh">零第三方追踪</span><span data-lang="en">Zero 3rd-party tracking</span></div>
+        <div class="pill">👤 <span data-lang="zh">无账号系统</span><span data-lang="en">No accounts</span></div>
+        <div class="pill">📴 <span data-lang="zh">离线可用</span><span data-lang="en">Works offline</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ─── Support / FAQ ─── -->
+<section id="support">
+  <div class="section-inner">
+    <div data-lang="zh">
+      <p class="section-label">支持与帮助</p>
+      <h2 class="section-title">常见问题</h2>
+      <p class="section-sub">找不到你的问题？发邮件给我们，通常在 72 小时内回复。</p>
+    </div>
+    <div data-lang="en">
+      <p class="section-label">Support</p>
+      <h2 class="section-title">Frequently asked questions</h2>
+      <p class="section-sub">Can't find your answer? Email us — we usually reply within 72 hours.</p>
+    </div>
+
+    <div class="faq-list">
+
+      <!-- FAQ 1 -->
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">
+          <span data-lang="zh">我的日记会上传到云端吗？</span>
+          <span data-lang="en">Will my journal be uploaded to the cloud?</span>
+          <span class="faq-chevron">▼</span>
+        </div>
+        <div class="faq-a">
+          <span data-lang="zh">不会。所有日记、照片、AI 内容都保存在你的 iPhone 本地数据库（SwiftData）中，从不发送到任何服务器。Via 没有后端，没有账号系统。</span>
+          <span data-lang="en">No. All journals, photos, and AI content are saved in your iPhone's local database (SwiftData) and never sent to any server. Via has no backend and no account system.</span>
+        </div>
+      </div>
+
+      <!-- FAQ 2 -->
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">
+          <span data-lang="zh">AI 功能需要网络吗？</span>
+          <span data-lang="en">Does the AI feature require an internet connection?</span>
+          <span class="faq-chevron">▼</span>
+        </div>
+        <div class="faq-a">
+          <span data-lang="zh">不需要。Via 使用 Apple Foundation Models——一种完全运行在设备端的大语言模型，无需联网。若设备暂不支持，Via 会使用内置模板生成内容，同样不需要网络。</span>
+          <span data-lang="en">No. Via uses Apple Foundation Models — a large language model running entirely on your device with no internet required. If your device doesn't support it yet, Via uses built-in templates to generate content, also with no network needed.</span>
+        </div>
+      </div>
+
+      <!-- FAQ 3 -->
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">
+          <span data-lang="zh">如何备份和恢复数据？</span>
+          <span data-lang="en">How do I back up and restore my data?</span>
+          <span class="faq-chevron">▼</span>
+        </div>
+        <div class="faq-a">
+          <span data-lang="zh">前往「设置 → 导出数据」，选择「完整备份（JSON）」。这份文件包含你所有的日记、总结、照片和 AI 内容。换机或重装 App 后，在同一位置选择「导入备份」即可恢复。</span>
+          <span data-lang="en">Go to Settings → Export Data and choose "Full Backup (JSON)." This file contains all your journals, summaries, photos, and AI content. After switching devices or reinstalling, tap "Import Backup" in the same location to restore everything.</span>
+        </div>
+      </div>
+
+      <!-- FAQ 4 -->
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">
+          <span data-lang="zh">如何删除所有数据？</span>
+          <span data-lang="en">How do I delete all my data?</span>
+          <span class="faq-chevron">▼</span>
+        </div>
+        <div class="faq-a">
+          <span data-lang="zh">前往「设置 → 删除所有数据」，输入"DELETE"确认后，所有日记、总结和 AI 内容将被彻底清除。此操作不可撤销，建议先导出完整备份。卸载 App 也会从设备上删除所有数据。</span>
+          <span data-lang="en">Go to Settings → Delete All Data, type "DELETE" to confirm, and all journals, summaries, and AI content will be permanently erased. This cannot be undone — we recommend exporting a full backup first. Uninstalling the app also removes all data from your device.</span>
+        </div>
+      </div>
+
+      <!-- FAQ 5 -->
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">
+          <span data-lang="zh">什么时候生成周 / 月 / 季度总结？</span>
+          <span data-lang="en">When are weekly / monthly / quarterly summaries generated?</span>
+          <span class="faq-chevron">▼</span>
+        </div>
+        <div class="faq-a">
+          <span data-lang="zh">每当你完成某个周期最后一天的记录，或者下次打开 App 时，Via 会自动检查并生成该周期的总结。首份总结在你累积满 7 天记录后生成。</span>
+          <span data-lang="en">Summaries are generated automatically when you complete the last day's entry of a period, or the next time you open the app. Your first summary is generated after you've recorded 7 days.</span>
+        </div>
+      </div>
+
+      <!-- FAQ 6 -->
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">
+          <span data-lang="zh">忘记记录了怎么办？可以补记吗？</span>
+          <span data-lang="en">I forgot to journal. Can I add a past entry?</span>
+          <span class="faq-chevron">▼</span>
+        </div>
+        <div class="faq-a">
+          <span data-lang="zh">Via 目前专注于当日记录，暂不支持补记过去的日期。但是跳过某天完全没问题，Via 不会催你，随时回来都可以继续。</span>
+          <span data-lang="en">Via currently focuses on today's entry and doesn't support backdated entries. But skipping a day is completely fine — Via won't nag you. Come back whenever you're ready.</span>
+        </div>
+      </div>
+
+      <!-- FAQ 7 -->
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">
+          <span data-lang="zh">Via 支持哪些 iPhone 型号？</span>
+          <span data-lang="en">Which iPhone models does Via support?</span>
+          <span class="faq-chevron">▼</span>
+        </div>
+        <div class="faq-a">
+          <span data-lang="zh">Via 需要 iOS 17.0 或更新版本。Apple Foundation Models 的 AI 功能需要支持该特性的设备（目前为搭载 A17 Pro 及以上芯片或 M 系列芯片的设备）；其他设备可使用模板生成版本的 AI 内容，所有其他功能完全可用。</span>
+          <span data-lang="en">Via requires iOS 17.0 or later. The AI features powered by Apple Foundation Models require a supported device (currently A17 Pro or later, or M-series chip). On other devices, Via uses template-generated AI content — all other features work fully.</span>
+        </div>
+      </div>
+
+      <!-- FAQ 8 -->
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">
+          <span data-lang="zh">如何切换中文 / 英文？</span>
+          <span data-lang="en">How do I switch between Chinese and English?</span>
+          <span class="faq-chevron">▼</span>
+        </div>
+        <div class="faq-a">
+          <span data-lang="zh">Via 会自动跟随 iOS 系统语言（中文系统 → 中文，其他语言 → 英文）。你也可以前往「设置 → 语言」手动切换，切换后 AI 生成的内容也会随之改变语言。</span>
+          <span data-lang="en">Via automatically follows your iOS system language (Chinese system → Chinese; other languages → English). You can also go to Settings → Language to switch manually. AI-generated content will follow your chosen language.</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ─── Contact ─── -->
+<section class="contact-section" id="contact">
+  <div class="section-inner">
+    <div data-lang="zh">
+      <p class="section-label">联系支持</p>
+      <h2 class="section-title">有问题，直接说</h2>
+      <p class="section-sub">遇到 bug、有功能建议、或者有任何隐私方面的疑虑，欢迎发邮件给我。</p>
+    </div>
+    <div data-lang="en">
+      <p class="section-label">Contact support</p>
+      <h2 class="section-title">Got a question? Just ask.</h2>
+      <p class="section-sub">Found a bug, have a feature idea, or any privacy concern — email me directly.</p>
+    </div>
+
+    <div class="contact-card reveal">
+      <div class="contact-avatar">👤</div>
+      <div>
+        <p class="contact-name">Peter Chang</p>
+        <p class="contact-role">
+          <span data-lang="zh">Via 独立开发者</span>
+          <span data-lang="en">Independent Developer, Via</span>
+        </p>
+        <a class="contact-email" href="mailto:via@peter-chang.net">
+          ✉ via@peter-chang.net
+        </a>
+      </div>
+    </div>
+
+    <p class="response-note">
+      <span data-lang="zh">⏱ 通常在 72 小时内回复。感谢你使用 Via。</span>
+      <span data-lang="en">⏱ Typically responds within 72 hours. Thank you for using Via.</span>
+    </p>
+  </div>
+</section>
+
+
+<!-- ─── Footer ─── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-links">
+      <a href="#features">
+        <span data-lang="zh">功能介绍</span>
+        <span data-lang="en">Features</span>
+      </a>
+      <a href="#support">
+        <span data-lang="zh">常见问题</span>
+        <span data-lang="en">FAQ</span>
+      </a>
+      <a href="#contact">
+        <span data-lang="zh">联系我们</span>
+        <span data-lang="en">Contact</span>
+      </a>
+      <a href="privacy-policy.html">
+        <span data-lang="zh">隐私政策</span>
+        <span data-lang="en">Privacy Policy</span>
+      </a>
+    </div>
+    <p class="footer-copy">
+      <span data-lang="zh">© 2026 Peter Chang · Via App · 保留所有权利</span>
+      <span data-lang="en">© 2026 Peter Chang · Via App · All rights reserved</span>
+    </p>
+  </div>
+</footer>
+
+
+<!-- ─── Scripts ─── -->
+<script>
+  /* Language */
+  function setLang(lang) {
+    document.documentElement.lang = lang;
+    document.getElementById('btn-zh').classList.toggle('active', lang === 'zh-Hans');
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    localStorage.setItem('via-lang', lang);
+  }
+
+  /* Dropdown menu */
+  function toggleMenu() {
+    document.getElementById('dropdown').classList.toggle('open');
+  }
+  document.addEventListener('click', function(e) {
+    const wrap = document.querySelector('.menu-wrap');
+    if (wrap && !wrap.contains(e.target)) {
+      document.getElementById('dropdown').classList.remove('open');
+    }
+  });
+
+  /* FAQ accordion */
+  function toggleFaq(el) {
+    const wasOpen = el.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+    if (!wasOpen) el.classList.add('open');
+  }
+
+  /* Scroll reveal */
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        revealObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+  /* Auto-detect language */
+  (function () {
+    const saved = localStorage.getItem('via-lang');
+    const browserLang = navigator.language || navigator.userLanguage || 'zh';
+    const lang = saved || (browserLang.startsWith('zh') ? 'zh-Hans' : 'en');
+    setLang(lang);
+  })();
+</script>
+
+</body>
+</html>

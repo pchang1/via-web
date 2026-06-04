@@ -1,0 +1,27 @@
+services:
+  via-web:
+    image: via-web:latest
+    container_name: via-web
+    ports:
+      - "5080:80"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+# Uncomment below to run behind a reverse proxy (e.g. Nginx Proxy Manager, Traefik)
+# and expose only internally:
+#
+#   via-web:
+#     ports: []          # remove host binding
+#     networks:
+#       - proxy
+#     labels:
+#       - "traefik.enable=true"
+#       - "traefik.http.routers.via-web.rule=Host(`your-domain.com`)"
+#
+# networks:
+#   proxy:
+#     external: true

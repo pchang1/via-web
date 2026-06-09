@@ -12,34 +12,65 @@
   <meta property="og:description" content="每天记录一点，长期看见自己的节奏。本地优先，AI 加持，完全私密。" />
   <meta property="og:type" content="website" />
 
+  <!-- Google Fonts for bespoke editorial typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
   <style>
     /* ─────────────────────────── Reset & Tokens ─────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:        #f5f1ec;
-      --bg2:       #ede8e1;
-      --card:      #ffffff;
-      --primary:   #3d2c1e;
-      --secondary: #8a7060;
-      --accent:    #7c5c3e;
-      --accent2:   #a07850;
-      --border:    #e8e0d8;
-      --tag-bg:    #ede8e2;
-      --radius:    16px;
-      --shadow:    0 2px 16px rgba(60,40,20,0.08);
-      --shadow-lg: 0 8px 40px rgba(60,40,20,0.13);
+      --bg:            #FCF7F1;
+      --bg2:           #EFEAE2;
+      --topbar-bg:     rgba(252, 247, 241, 0.88);
+      --card:          #ffffff;
+      --primary:       #182923;
+      --secondary:     #647469;
+      --accent:        #275E4E;
+      --accent2:       #3A7D69;
+      --border:        #E5DDD4;
+      --tag-bg:        #EFEAE2;
+      --radius:        16px;
+      --shadow:        0 2px 16px rgba(24,41,35,0.06);
+      --shadow-lg:     0 8px 40px rgba(24,41,35,0.1);
+      --hero-glow:     radial-gradient(circle, rgba(39,94,78,0.12) 0%, transparent 70%);
+      --philo-icon-bg: linear-gradient(135deg, #e2ebe6 0%, #cbdcd2 100%);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg:            #0D1714;
+        --bg2:           #060B09;
+        --topbar-bg:     rgba(13, 23, 20, 0.88);
+        --card:          #13211C;
+        --primary:       #ECE6D9;
+        --secondary:     #AFBFB4;
+        --accent:        #4C8A77;
+        --accent2:       #295E4E;
+        --border:        #1A2C26;
+        --tag-bg:        #162520;
+        --shadow:        0 2px 16px rgba(0,0,0,0.3);
+        --shadow-lg:     0 8px 40px rgba(0,0,0,0.4);
+        --hero-glow:     radial-gradient(circle, rgba(76,138,119,0.08) 0%, transparent 70%);
+        --philo-icon-bg: linear-gradient(135deg, #182c25 0%, #10201a 100%);
+      }
     }
 
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
                    "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
       background: var(--bg);
       color: var(--primary);
       line-height: 1.75;
       overflow-x: hidden;
+    }
+
+    h1, h2, h3, .hero-via, .section-title, .slide-title, .privacy-highlight h3, .contact-name {
+      font-family: 'Lora', Georgia, 'Nimbus Roman No9 L', 'Songti SC', serif;
     }
 
     /* ─────────────────────────── Top bar ─────────────────────────── */
@@ -52,10 +83,10 @@
       align-items: center;
       justify-content: space-between;
       padding: 0 28px;
-      background: rgba(245,241,236,0.88);
+      background: var(--topbar-bg);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(232,224,216,0.7);
+      border-bottom: 1px solid var(--border);
     }
 
     .topbar-brand {
@@ -67,6 +98,7 @@
       display: flex;
       align-items: center;
       gap: 6px;
+      font-family: 'Lora', Georgia, serif;
     }
 
     .topbar-right {
@@ -174,7 +206,7 @@
       content: '';
       position: absolute;
       width: 600px; height: 600px;
-      background: radial-gradient(circle, rgba(124,92,62,0.10) 0%, transparent 70%);
+      background: var(--hero-glow);
       top: 50%; left: 50%;
       transform: translate(-50%, -55%);
       pointer-events: none;
@@ -189,7 +221,7 @@
     .hero-icon-bg {
       width: 96px; height: 96px;
       border-radius: 22px;          /* iOS icon corner radius */
-      box-shadow: 0 8px 32px rgba(124,92,62,0.28), 0 2px 8px rgba(0,0,0,0.10);
+      box-shadow: 0 8px 32px rgba(39,94,78,0.25), 0 2px 8px rgba(0,0,0,0.15);
       overflow: hidden;
       display: block;
     }
@@ -219,7 +251,7 @@
       font-weight: 900;
       letter-spacing: -3px;
       line-height: 1;
-      background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 60%, #c09a70 100%);
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 70%, var(--primary) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -260,13 +292,13 @@
       font-size: 15px;
       font-weight: 600;
       text-decoration: none;
-      box-shadow: 0 4px 20px rgba(124,92,62,0.3);
+      box-shadow: 0 4px 20px rgba(39,94,78,0.25);
       transition: all 0.2s;
     }
     .btn-primary:hover {
       background: var(--accent2);
       transform: translateY(-1px);
-      box-shadow: 0 6px 24px rgba(124,92,62,0.35);
+      box-shadow: 0 6px 24px rgba(39,94,78,0.35);
     }
 
     .btn-secondary {
@@ -457,7 +489,7 @@
       flex-shrink: 0;
       width: 44px; height: 44px;
       border-radius: 12px;
-      background: linear-gradient(135deg, #e8ddd3 0%, #d4c4b4 100%);
+      background: var(--philo-icon-bg);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -539,7 +571,7 @@
 
     /* ─────────────────────────── Privacy spotlight ─────────────────────────── */
     .privacy-highlight {
-      background: linear-gradient(135deg, #3d2c1e 0%, #5a3f2b 100%);
+      background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
       border-radius: 24px;
       padding: 56px 40px;
       text-align: center;
@@ -650,7 +682,7 @@
     .contact-avatar {
       width: 60px; height: 60px;
       border-radius: 18px;
-      background: linear-gradient(135deg, #e8ddd3 0%, #d4c4b4 100%);
+      background: var(--philo-icon-bg);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -744,13 +776,185 @@
       .privacy-highlight { padding: 36px 20px; }
       .contact-card { flex-direction: column; }
     }
+
+    /* ─────────────────────────── Showcase ─────────────────────────── */
+    .showcase-section {
+      background: var(--bg2);
+    }
+    .showcase-container {
+      margin-top: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 36px;
+    }
+    .showcase-tabs {
+      display: flex;
+      gap: 8px;
+      background: var(--border);
+      padding: 5px;
+      border-radius: 30px;
+      max-width: 100%;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .showcase-tabs::-webkit-scrollbar { display: none; }
+    
+    .showcase-tab {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 20px;
+      border: none;
+      background: transparent;
+      border-radius: 25px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--secondary);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .showcase-tab:hover {
+      color: var(--primary);
+    }
+    .showcase-tab.active {
+      background: var(--card);
+      color: var(--accent);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    }
+    
+    .showcase-content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 60px;
+      max-width: 840px;
+      width: 100%;
+    }
+    
+    /* Device Mockup */
+    .device-mockup {
+      flex-shrink: 0;
+      width: 250px;
+      height: 510px;
+      border-radius: 38px;
+      border: 8px solid var(--primary);
+      background: var(--primary);
+      box-shadow: var(--shadow-lg), 0 20px 50px rgba(0,0,0,0.15);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .device-notch {
+      position: absolute;
+      top: 0;
+      width: 110px;
+      height: 18px;
+      background: var(--primary);
+      border-bottom-left-radius: 14px;
+      border-bottom-right-radius: 14px;
+      z-index: 10;
+    }
+    .device-screen {
+      width: 100%;
+      height: 100%;
+      border-radius: 30px;
+      background: var(--bg);
+      position: relative;
+      overflow: hidden;
+    }
+    .mockup-img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      transform: scale(0.96) translateY(5px);
+    }
+    .mockup-img.active {
+      opacity: 1;
+      transform: none;
+      z-index: 2;
+    }
+    
+    .showcase-details {
+      flex: 1;
+      min-height: 220px;
+    }
+    .showcase-detail-slide {
+      display: none;
+      animation: slideFadeIn 0.4s ease forwards;
+    }
+    .showcase-detail-slide.active {
+      display: block;
+    }
+    
+    @keyframes slideFadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: none; }
+    }
+    
+    .slide-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 14px;
+      line-height: 1.3;
+    }
+    .slide-desc {
+      font-size: 14.5px;
+      color: var(--secondary);
+      line-height: 1.65;
+      margin-bottom: 20px;
+    }
+    .slide-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .slide-list li {
+      font-size: 13.5px;
+      color: var(--primary);
+      position: relative;
+      padding-left: 20px;
+    }
+    .slide-list li::before {
+      content: "✦";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: bold;
+    }
+
+    @media (max-width: 800px) {
+      .showcase-content {
+        flex-direction: column;
+        gap: 30px;
+        text-align: center;
+      }
+      .slide-list {
+        align-items: center;
+        text-align: left;
+      }
+      .showcase-details {
+        min-height: auto;
+      }
+    }
   </style>
 </head>
 <body>
 
 <!-- ─── Top bar ─── -->
 <div class="topbar">
-  <a class="topbar-brand" href="#">✦ Via</a>
+  <a class="topbar-brand" href="#">
+    <img src="AppIcon.png" alt="Via App Icon" style="width: 24px; height: 24px; border-radius: 5px; display: inline-block; vertical-align: middle; margin-right: 4px; box-shadow: 0 1px 4px rgba(0,0,0,0.1);" />
+    <span style="font-weight: 800; vertical-align: middle;">Via</span>
+  </a>
 
   <div class="topbar-right">
 
@@ -833,6 +1037,151 @@
     <div class="hero-badge"><div class="dot"></div><span data-lang="zh">设备端 AI</span><span data-lang="en">On-device AI</span></div>
     <div class="hero-badge"><div class="dot"></div><span data-lang="zh">无账号 · 无追踪</span><span data-lang="en">No account · No tracking</span></div>
     <div class="hero-badge"><div class="dot"></div><span data-lang="zh">中英双语</span><span data-lang="en">Chinese & English</span></div>
+  </div>
+</section>
+
+
+<!-- ─── Showcase Gallery ─── -->
+<section class="showcase-section" id="showcase">
+  <div class="section-inner">
+    <div data-lang="zh">
+      <p class="section-label">界面预览</p>
+      <h2 class="section-title">温和、精致的日记体验</h2>
+      <p class="section-sub">每一个界面都经过精心打磨，没有复杂的图表，只提供平静的记录与复盘空间。</p>
+    </div>
+    <div data-lang="en">
+      <p class="section-label">Interface Showcase</p>
+      <h2 class="section-title">A Calm and Beautiful Journaling Experience</h2>
+      <p class="section-sub">Every detail is carefully crafted to offer a serene space for writing and reflection, free from clutter.</p>
+    </div>
+
+    <div class="showcase-container">
+      <!-- Tabs Selector -->
+      <div class="showcase-tabs">
+        <button class="showcase-tab active" onclick="switchShowcase(0)">
+          <span class="icon">☀️</span>
+          <span data-lang="zh">今日记录</span>
+          <span data-lang="en">Today</span>
+        </button>
+        <button class="showcase-tab" onclick="switchShowcase(1)">
+          <span class="icon">👤</span>
+          <span data-lang="zh">自我画像</span>
+          <span data-lang="en">Self-Portrait</span>
+        </button>
+        <button class="showcase-tab" onclick="switchShowcase(2)">
+          <span class="icon">✨</span>
+          <span data-lang="zh">AI 总结</span>
+          <span data-lang="en">Summaries</span>
+        </button>
+        <button class="showcase-tab" onclick="switchShowcase(3)">
+          <span class="icon">📅</span>
+          <span data-lang="zh">历史日历</span>
+          <span data-lang="en">History</span>
+        </button>
+      </div>
+
+      <!-- Content Area -->
+      <div class="showcase-content">
+        <!-- Mockup Device -->
+        <div class="device-mockup">
+          <div class="device-notch"></div>
+          <div class="device-screen">
+            <img id="showcase-img-primary" class="mockup-img active" src="screenshots/04_today_after_record.png" alt="Today view primary" />
+          </div>
+        </div>
+
+        <!-- Details Info -->
+        <div class="showcase-details">
+          <!-- Slide 0: Today -->
+          <div class="showcase-detail-slide active">
+            <div data-lang="zh">
+              <h3 class="slide-title">每天几分钟，留下生活线索</h3>
+              <p class="slide-desc">Via 提供极简的结构化每日复盘。在完成今日记录后，设备端 AI 将即时为你整理一份温和的今日反馈，鼓励并提醒你明天的方向。</p>
+              <ul class="slide-list">
+                <li><strong>结构化记录</strong>：产出、时间消耗与明日意图。</li>
+                <li><strong>当日 AI 反馈</strong>：肯定进展，提供温和建议与指引。</li>
+                <li><strong>设备端隐私</strong>：日记内容不会离开你的手机。</li>
+              </ul>
+            </div>
+            <div data-lang="en">
+              <h3 class="slide-title">A Few Minutes a Day to Capture Your Path</h3>
+              <p class="slide-desc">Via uses simple structured prompts. Once you submit, your on-device AI generates a gentle reflection with support and directions for tomorrow.</p>
+              <ul class="slide-list">
+                <li><strong>Structured prompts</strong>: Outlining outputs, time-wasters, and next plans.</li>
+                <li><strong>Daily feedback</strong>: Affirming your progress with actionable suggestions.</li>
+                <li><strong>Device privacy</strong>: All insights are distilled locally.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Slide 1: Self-Portrait -->
+          <div class="showcase-detail-slide">
+            <div data-lang="zh">
+              <h3 class="slide-title">建立并微调你的“自我画像”</h3>
+              <p class="slide-desc">通过 20 个轻量提问，Via 会在本地生成你的多维度生活倾向，自适应地调整每日提问。每周它还会读取你的记录，自动提炼线索，提醒你确认画像的变化。</p>
+              <ul class="slide-list">
+                <li><strong>个性化倾向</strong>：开放性、外倾性、尽责性等五维分析。</li>
+                <li><strong>动态性格线索</strong>：根据每周日记自动试答，保持最新。</li>
+                <li><strong>无感调优</strong>：日记问题随画像动态变化，更懂当下的你。</li>
+              </ul>
+            </div>
+            <div data-lang="en">
+              <h3 class="slide-title">Build and Fine-Tune Your Self-Portrait</h3>
+              <p class="slide-desc">A light 20-question onboarding sets up your personality dimensions. Each week, Via reads your journals to suggest updates to your self-portrait, keeping your daily prompts tailored to your state.</p>
+              <ul class="slide-list">
+                <li><strong>Multi-dimensional profile</strong>: Tracks openness, conscientiousness, agreeableness, etc.</li>
+                <li><strong>Dynamic updates</strong>: AI pre-fills personality checks based on weekly journals.</li>
+                <li><strong>Adaptive prompts</strong>: Daily questions align perfectly with who you are now.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Slide 2: AI Summaries -->
+          <div class="showcase-detail-slide">
+            <div data-lang="zh">
+              <h3 class="slide-title">时间越长，洞察越深</h3>
+              <p class="slide-desc">从周总结到年度总结，Via 的 AI 会在每个周期结束时深入分析你的记录，帮你串联起时间消耗的规律与情绪主题，并给每份总结生成暖心的教练标题。</p>
+              <ul class="slide-list">
+                <li><strong>周观察报告</strong>：第一份观察将在第 7 天自动解锁。</li>
+                <li><strong>中长期复盘</strong>：包含月度、季度与年度的大视角回顾。</li>
+                <li><strong>情绪与精力规律</strong>：不只是冰冷的数据，而是温暖的反思。</li>
+              </ul>
+            </div>
+            <div data-lang="en">
+              <h3 class="slide-title">Longer Usage, Deeper Insights</h3>
+              <p class="slide-desc">From weekly summaries to annual retrospectives, Via's AI tracks your habits, energy triggers, and mood trends, crowning each report with a warm, encouraging title.</p>
+              <ul class="slide-list">
+                <li><strong>Weekly observation</strong>: Unlocked automatically after 7 days of journaling.</li>
+                <li><strong>Long-term reflection</strong>: Covering monthly, quarterly, and annual growth views.</li>
+                <li><strong>Habit & energy themes</strong>: Warm insights rather than cold, technical statistics.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Slide 3: History -->
+          <div class="showcase-detail-slide">
+            <div data-lang="zh">
+              <h3 class="slide-title">像翻阅手账一样查看历史</h3>
+              <p class="slide-desc">在历史视图中，你的记录将以优美的时间轴展现，你可以配合全文搜索或分类筛选，随时查看已总结或已收藏的内容。新版本还支持在日历中直接点击空白日期“待补全”记录。</p>
+              <ul class="slide-list">
+                <li><strong>全文即时检索</strong>：快速搜索所有的日记字段。</li>
+                <li><strong>日历记录概览</strong>：通过日历色块一眼看清自己的记录频率。</li>
+                <li><strong>无压补写功能</strong>：漏记时可点击日历中任意空白日期进行补写。</li>
+              </ul>
+            </div>
+            <div data-lang="en">
+              <h3 class="slide-title">Browse History Like a Personal Journal</h3>
+              <p class="slide-desc">View all entries in a timeline format. Search text or filter by favorites/summarized entries. Tap any missing date on the calendar tab to easily backfill an entry without stress.</p>
+              <ul class="slide-list">
+                <li><strong>Instant full-text search</strong>: Quickly find any past thoughts or events.</li>
+                <li><strong>Calendar frequency</strong>: Spot patterns of recording days at a single glance.</li>
+                <li><strong>Retroactive logging</strong>: Tap any blank calendar day to add entries.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -980,6 +1329,13 @@
         <div>
           <div data-lang="zh"><p class="feature-text-title">富文本日记</p><p class="feature-text-desc">支持加粗、斜体等文字格式，可以直接插入照片，记录更完整。</p></div>
           <div data-lang="en"><p class="feature-text-title">Rich text journal</p><p class="feature-text-desc">Bold, italic, and inline photos — capture more than plain words.</p></div>
+        </div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon-wrap">👤</div>
+        <div>
+          <div data-lang="zh"><p class="feature-text-title">自我画像与线索</p><p class="feature-text-desc">20 题轻量问答与 AI 分析，让 Via 自适应调整每日提问。每周基于日记提炼性格线索，轻轻更新自我画像。</p></div>
+          <div data-lang="en"><p class="feature-text-title">Self-Portrait &amp; Traits</p><p class="feature-text-desc">A 20-question profile and AI analysis adapt daily prompts to you. AI refines personality clues weekly to update your portrait.</p></div>
         </div>
       </div>
       <div class="feature-card reveal">
@@ -1211,8 +1567,8 @@
           <span class="faq-chevron">▼</span>
         </div>
         <div class="faq-a">
-          <span data-lang="zh">Via 目前专注于当日记录，暂不支持补记过去的日期。但是跳过某天完全没问题，Via 不会催你，随时回来都可以继续。</span>
-          <span data-lang="en">Via currently focuses on today's entry and doesn't support backdated entries. But skipping a day is completely fine — Via won't nag you. Come back whenever you're ready.</span>
+          <span data-lang="zh">可以。Via 支持「待补全」功能。在日历或历史时间线中，你可以直接点击任何未记录的日期进行补写，或者通过历史顶部的提醒横幅一键补记。当然，跳过某些天完全没问题，Via 没有任何连续打卡压力，一切以你的节奏为准。</span>
+          <span data-lang="en">Yes. Via supports backdated entries. You can tap any empty date on the calendar tab or timeline to add an entry, or use the retroactive banner in the history tab. Skipping a day is still completely fine — Via won't pressure you.</span>
         </div>
       </div>
 
@@ -1350,6 +1706,51 @@
     });
   }, { threshold: 0.1 });
   document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+  /* Showcase switching */
+  const showcaseData = [
+    {
+      img: 'screenshots/04_today_after_record.png',
+      alt: 'Today record feedback'
+    },
+    {
+      img: 'screenshots/05_longterm_today_life_clues.png',
+      alt: 'Self-Portrait traits and clues'
+    },
+    {
+      img: 'screenshots/06_week_summary_detail.png',
+      alt: 'Weekly AI summary details'
+    },
+    {
+      img: 'screenshots/09_journal_calendar.png',
+      alt: 'Calendar history timeline'
+    }
+  ];
+
+  function switchShowcase(index) {
+    const tabs = document.querySelectorAll('.showcase-tab');
+    tabs.forEach((tab, idx) => {
+      tab.classList.toggle('active', idx === index);
+    });
+
+    const slides = document.querySelectorAll('.showcase-detail-slide');
+    slides.forEach((slide, idx) => {
+      slide.classList.toggle('active', idx === index);
+    });
+
+    const imgEl = document.getElementById('showcase-img-primary');
+    if (imgEl) {
+      imgEl.style.opacity = '0';
+      imgEl.style.transform = 'scale(0.96) translateY(5px)';
+      
+      setTimeout(() => {
+        imgEl.src = showcaseData[index].img;
+        imgEl.alt = showcaseData[index].alt;
+        imgEl.style.opacity = '1';
+        imgEl.style.transform = 'none';
+      }, 200);
+    }
+  }
 
   /* Auto-detect language */
   (function () {

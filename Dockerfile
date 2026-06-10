@@ -9,6 +9,9 @@ RUN rm -rf /usr/share/nginx/html/*
 COPY index.html /usr/share/nginx/html/index.html
 COPY privacy-policy.html /usr/share/nginx/html/privacy-policy.html
 COPY AppIcon.png /usr/share/nginx/html/AppIcon.png
+COPY ViaLogo.png /usr/share/nginx/html/ViaLogo.png
+COPY ViaLogoDark.png /usr/share/nginx/html/ViaLogoDark.png
+COPY screenshots/ /usr/share/nginx/html/screenshots/
 
 # Copy custom nginx config
 COPY nginx.conf /etc/nginx/conf.d/default.conf

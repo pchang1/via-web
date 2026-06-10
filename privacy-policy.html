@@ -3,30 +3,57 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Via · 隐私政策 / Privacy Policy</title>
-  <meta name="description" content="Via App 隐私政策 / Via App Privacy Policy" />
+  <title>Via拾光 · 隐私政策 / Privacy Policy</title>
+  <meta name="description" content="Via拾光 App 隐私政策 / Via Journal App Privacy Policy" />
+  <!-- Google Fonts for bespoke editorial typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:        #f5f1ec;
-      --card:      #ffffff;
-      --primary:   #3d2c1e;
-      --secondary: #8a7060;
-      --accent:    #7c5c3e;
-      --border:    #e8e0d8;
-      --tag-bg:    #ede8e2;
-      --radius:    14px;
-      --shadow:    0 2px 12px rgba(60,40,20,0.07);
+      --bg:            #FCF7F1;
+      --bg2:           #EFEAE2;
+      --topbar-bg:     rgba(252, 247, 241, 0.92);
+      --card:          #ffffff;
+      --primary:       #182923;
+      --secondary:     #647469;
+      --accent:        #275E4E;
+      --accent2:       #3A7D69;
+      --border:        #E5DDD4;
+      --tag-bg:        #EFEAE2;
+      --radius:        14px;
+      --shadow:        0 2px 12px rgba(24,41,35,0.05);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg:            #0D1714;
+        --bg2:           #060B09;
+        --topbar-bg:     rgba(13, 23, 20, 0.92);
+        --card:          #13211C;
+        --primary:       #ECE6D9;
+        --secondary:     #AFBFB4;
+        --accent:        #4C8A77;
+        --accent2:       #295E4E;
+        --border:        #1A2C26;
+        --tag-bg:        #162520;
+        --shadow:        0 2px 12px rgba(0,0,0,0.3);
+      }
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
                    "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
       background: var(--bg);
       color: var(--primary);
       line-height: 1.75;
       min-height: 100vh;
+    }
+
+    h1, h2, h3, .topbar-brand, .contact-card .name {
+      font-family: 'Lora', Georgia, 'Nimbus Roman No9 L', 'Songti SC', serif;
     }
 
     /* ── Top bar ── */
@@ -39,7 +66,7 @@
       justify-content: space-between;
       padding: 0 24px;
       height: 56px;
-      background: rgba(245,241,236,0.92);
+      background: var(--topbar-bg);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
@@ -200,7 +227,7 @@
 
     /* ── Highlight box ── */
     .highlight {
-      background: #f0ebe4;
+      background: var(--tag-bg);
       border-left: 3px solid var(--accent);
       border-radius: 8px;
       padding: 14px 16px;
@@ -257,7 +284,7 @@
       display: flex;
       align-items: center;
       gap: 14px;
-      background: #f0ebe4;
+      background: var(--tag-bg);
       border-radius: 10px;
       padding: 16px 18px;
       margin-top: 10px;
@@ -307,7 +334,13 @@
 
 <!-- ── Top bar ── -->
 <div class="topbar">
-  <a class="topbar-brand" href="index.html">✦ Via</a>
+  <a class="topbar-brand" href="index.html">
+    <img src="AppIcon.png" alt="Via Logo" style="width: 22px; height: 22px; border-radius: 5px; display: inline-block; vertical-align: middle; margin-right: 4px; box-shadow: 0 1px 4px rgba(0,0,0,0.1);" />
+    <span style="font-weight: 800; vertical-align: middle;">
+      <span data-lang="zh">Via拾光</span>
+      <span data-lang="en">Via Journal</span>
+    </span>
+  </a>
 
   <div class="topbar-right">
     <!-- Menu -->
@@ -357,11 +390,11 @@
     <div class="hero-icon">🔒</div>
 
     <div data-lang="zh">
-      <h1>Via 隐私政策</h1>
+      <h1>Via拾光 隐私政策</h1>
       <p class="meta">作者：Peter Chang &nbsp;·&nbsp; 最后更新：2026年6月4日</p>
     </div>
     <div data-lang="en">
-      <h1>Via Privacy Policy</h1>
+      <h1>Via Journal Privacy Policy</h1>
       <p class="meta">Author: Peter Chang &nbsp;·&nbsp; Last updated: June 4, 2026</p>
     </div>
   </div>
@@ -370,16 +403,16 @@
   <div class="section">
     <div data-lang="zh">
       <h2><span class="icon">📋</span> 概述</h2>
-      <p>Via 是一款本地优先的 AI 日记与个人复盘 App。我们深知日记是极其私密的内容，因此 Via 的设计原则是：<strong>所有数据默认留在你的设备上</strong>，不上传到任何服务器，不建立任何用户账户。</p>
+      <p>Via拾光 是一款本地优先的 AI 日记与个人复盘 App。我们深知日记是极其私密的内容，因此 Via拾光 的设计原则是：<strong>所有数据默认留在你的设备上</strong>，不上传到任何服务器，不建立任何用户账户。</p>
       <div class="highlight">
-        Via 没有后端服务器、没有账号系统、不收集任何可识别个人身份的信息。你的日记只属于你。
+        Via拾光 没有后端服务器、没有账号系统、不收集任何可识别个人身份的信息。你的日记只属于你。
       </div>
     </div>
     <div data-lang="en">
       <h2><span class="icon">📋</span> Overview</h2>
-      <p>Via is a local-first AI journaling and personal reflection app. We understand that journaling is deeply personal. Via is designed so that <strong>all your data stays on your device by default</strong> — nothing is uploaded to any server, and no user accounts are created.</p>
+      <p>Via Journal is a local-first AI journaling and personal reflection app. We understand that journaling is deeply personal. Via Journal is designed so that <strong>all your data stays on your device by default</strong> — nothing is uploaded to any server, and no user accounts are created.</p>
       <div class="highlight">
-        Via has no backend servers, no account system, and collects no personally identifiable information. Your journal belongs only to you.
+        Via Journal has no backend servers, no account system, and collects no personally identifiable information. Your journal belongs only to you.
       </div>
     </div>
   </div>
@@ -388,7 +421,7 @@
   <div class="section">
     <div data-lang="zh">
       <h2><span class="icon">📦</span> 我们收集哪些数据</h2>
-      <p>Via 只在你的设备本地存储以下内容，所有数据均保存于 iOS 的 SwiftData 数据库或 UserDefaults 中：</p>
+      <p>Via拾光 只在你的设备本地存储以下内容，所有数据均保存于 iOS 的 SwiftData 数据库或 UserDefaults 中：</p>
       <table class="data-table">
         <tr>
           <th>数据类型</th>
@@ -425,7 +458,7 @@
     </div>
     <div data-lang="en">
       <h2><span class="icon">📦</span> What Data We Collect</h2>
-      <p>Via only stores the following data locally on your device, within iOS's SwiftData database or UserDefaults:</p>
+      <p>Via Journal only stores the following data locally on your device, within iOS's SwiftData database or UserDefaults:</p>
       <table class="data-table">
         <tr>
           <th>Data Type</th>
@@ -466,26 +499,26 @@
   <div class="section">
     <div data-lang="zh">
       <h2><span class="icon">🤖</span> AI 功能与数据处理</h2>
-      <p>Via 的 AI 功能优先使用 <strong>Apple Foundation Models</strong>，这是苹果提供的完全在设备端运行的本地大语言模型。</p>
+      <p>Via拾光 的 AI 功能优先使用 <strong>Apple Foundation Models</strong>，这是苹果提供的完全在设备端运行的本地大语言模型。</p>
       <ul>
         <li>AI 推理在你的设备本地完成，你的日记内容<strong>不会发送到任何外部服务器</strong>。</li>
-        <li>当设备不支持 Apple Foundation Models 时，Via 使用内置模板生成内容，同样不涉及网络请求。</li>
+        <li>当设备不支持 Apple Foundation Models 时，Via拾光 使用内置模板生成内容，同样不涉及网络请求。</li>
         <li>AI 生成的日反馈和各周期总结均以 JSON 格式保存在本地数据库。</li>
       </ul>
       <div class="highlight">
-        Via 不使用 OpenAI、Google、Anthropic 或任何第三方云端 AI 服务。
+        Via拾光 不使用 OpenAI、Google、Anthropic 或任何第三方云端 AI 服务。
       </div>
     </div>
     <div data-lang="en">
       <h2><span class="icon">🤖</span> AI Features &amp; Data Processing</h2>
-      <p>Via's AI features prioritize <strong>Apple Foundation Models</strong> — Apple's on-device large language model that runs entirely locally.</p>
+      <p>Via Journal's AI features prioritize <strong>Apple Foundation Models</strong> — Apple's on-device large language model that runs entirely locally.</p>
       <ul>
         <li>AI inference runs on your device. Your journal content is <strong>never sent to any external server</strong>.</li>
-        <li>When Apple Foundation Models are unavailable on a device, Via uses built-in templates to generate content — no network requests are made.</li>
+        <li>When Apple Foundation Models are unavailable on a device, Via Journal uses built-in templates to generate content — no network requests are made.</li>
         <li>AI-generated daily feedback and periodic summaries are stored in JSON format in the local database.</li>
       </ul>
       <div class="highlight">
-        Via does not use OpenAI, Google, Anthropic, or any third-party cloud AI service.
+        Via Journal does not use OpenAI, Google, Anthropic, or any third-party cloud AI service.
       </div>
     </div>
   </div>
@@ -494,7 +527,7 @@
   <div class="section">
     <div data-lang="zh">
       <h2><span class="icon">🔑</span> 系统权限说明</h2>
-      <p>Via 仅在你主动使用相关功能时请求以下系统权限：</p>
+      <p>Via拾光 仅在你主动使用相关功能时请求以下系统权限：</p>
       <table class="data-table">
         <tr>
           <th>权限</th>
@@ -526,7 +559,7 @@
     </div>
     <div data-lang="en">
       <h2><span class="icon">🔑</span> System Permissions</h2>
-      <p>Via only requests the following system permissions when you actively use the corresponding feature:</p>
+      <p>Via Journal only requests the following system permissions when you actively use the corresponding feature:</p>
       <table class="data-table">
         <tr>
           <th>Permission</th>
@@ -562,23 +595,23 @@
   <div class="section">
     <div data-lang="zh">
       <h2><span class="icon">🤝</span> 数据共享与第三方</h2>
-      <p>Via <strong>不与任何第三方共享、出售或披露</strong>你的个人数据。具体来说：</p>
+      <p>Via拾光 <strong>不与任何第三方共享、出售或披露</strong>你的个人数据。具体来说：</p>
       <ul>
-        <li>Via 不集成任何第三方分析 SDK（如 Firebase、Mixpanel、Amplitude 等）。</li>
-        <li>Via 不集成任何广告网络或追踪器。</li>
-        <li>Via 不使用任何第三方崩溃收集服务（如 Crashlytics、Sentry 等）。</li>
-        <li>Via 不通过 iCloud 或其他云存储服务同步数据。</li>
+        <li>Via拾光 不集成任何第三方分析 SDK（如 Firebase、Mixpanel、Amplitude 等）。</li>
+        <li>Via拾光 不集成任何广告网络或追踪器。</li>
+        <li>Via拾光 不使用任何第三方崩溃收集服务（如 Crashlytics、Sentry 等）。</li>
+        <li>Via拾光 不通过 iCloud 或其他云存储服务同步数据。</li>
       </ul>
       <p>唯一涉及数据离开设备的情形，是你<strong>主动选择导出数据</strong>（Markdown、CSV、JSON）并通过 iOS 系统分享面板分享至你自己选择的目标。</p>
     </div>
     <div data-lang="en">
       <h2><span class="icon">🤝</span> Data Sharing &amp; Third Parties</h2>
-      <p>Via <strong>does not share, sell, or disclose</strong> your personal data with any third party. Specifically:</p>
+      <p>Via Journal <strong>does not share, sell, or disclose</strong> your personal data with any third party. Specifically:</p>
       <ul>
-        <li>Via does not integrate any third-party analytics SDKs (e.g. Firebase, Mixpanel, Amplitude).</li>
-        <li>Via does not integrate any advertising networks or trackers.</li>
-        <li>Via does not use any third-party crash reporting services (e.g. Crashlytics, Sentry).</li>
-        <li>Via does not sync data via iCloud or any other cloud storage service.</li>
+        <li>Via Journal does not integrate any third-party analytics SDKs (e.g. Firebase, Mixpanel, Amplitude).</li>
+        <li>Via Journal does not integrate any advertising networks or trackers.</li>
+        <li>Via Journal does not use any third-party crash reporting services (e.g. Crashlytics, Sentry).</li>
+        <li>Via Journal does not sync data via iCloud or any other cloud storage service.</li>
       </ul>
       <p>The only scenario in which data leaves your device is when <strong>you actively choose to export</strong> (Markdown, CSV, JSON) and share it via the iOS system share sheet to a destination you select.</p>
     </div>
@@ -588,20 +621,20 @@
   <div class="section">
     <div data-lang="zh">
       <h2><span class="icon">🗄️</span> 数据保留与删除</h2>
-      <p>你对 Via 中的所有数据拥有完全控制权：</p>
+      <p>你对 Via拾光 中的所有数据拥有完全控制权：</p>
       <ul>
         <li><strong>删除单条日记</strong>：在历史页面，滑动或长按单条记录即可删除。</li>
         <li><strong>删除全部数据</strong>：前往「设置 → 删除所有数据」，确认后将清除所有日记、总结和 AI 内容。</li>
-        <li><strong>卸载 App</strong>：卸载 Via 将从设备上完全删除所有本地数据。由于没有云端备份，卸载前请先导出完整备份（JSON）。</li>
+        <li><strong>卸载 App</strong>：卸载 Via拾光 将从设备上完全删除所有本地数据。由于没有云端备份，卸载前请先导出完整备份（JSON）。</li>
       </ul>
     </div>
     <div data-lang="en">
       <h2><span class="icon">🗄️</span> Data Retention &amp; Deletion</h2>
-      <p>You have full control over all data in Via:</p>
+      <p>You have full control over all data in Via Journal:</p>
       <ul>
         <li><strong>Delete a single entry</strong>: In the History tab, swipe or long-press an entry to delete it.</li>
         <li><strong>Delete all data</strong>: Go to Settings → Delete All Data. After confirmation, all journals, summaries, and AI content will be erased.</li>
-        <li><strong>Uninstall the app</strong>: Uninstalling Via permanently removes all local data from your device. Since there is no cloud backup, please export a full backup (JSON) before uninstalling.</li>
+        <li><strong>Uninstall the app</strong>: Uninstalling Via Journal permanently removes all local data from your device. Since there is no cloud backup, please export a full backup (JSON) before uninstalling.</li>
       </ul>
     </div>
   </div>
@@ -610,11 +643,11 @@
   <div class="section">
     <div data-lang="zh">
       <h2><span class="icon">👶</span> 儿童隐私</h2>
-      <p>Via 不面向 13 岁以下儿童设计。我们不会故意收集儿童的个人信息。如果你认为你的孩子在使用 Via 并有隐私方面的顾虑，请通过下方联系方式与我们联系。</p>
+      <p>Via拾光 不面向 13 岁以下儿童设计。我们不会故意收集儿童的个人信息。如果你认为你的孩子在使用 Via拾光 并有隐私方面的顾虑，请通过下方联系方式与我们联系。</p>
     </div>
     <div data-lang="en">
       <h2><span class="icon">👶</span> Children's Privacy</h2>
-      <p>Via is not designed for children under the age of 13. We do not knowingly collect personal information from children. If you believe your child is using Via and you have privacy concerns, please contact us using the information below.</p>
+      <p>Via Journal is not designed for children under the age of 13. We do not knowingly collect personal information from children. If you believe your child is using Via Journal and you have privacy concerns, please contact us using the information below.</p>
     </div>
   </div>
 
@@ -622,7 +655,7 @@
   <div class="section">
     <div data-lang="zh">
       <h2><span class="icon">⚖️</span> 你的权利</h2>
-      <p>由于 Via 不收集任何服务器端数据，你对数据的控制权完全掌握在自己手中：</p>
+      <p>由于 Via拾光 不收集任何服务器端数据，你对数据的控制权完全掌握在自己手中：</p>
       <ul>
         <li><strong>访问权</strong>：你可以随时在 App 内查看所有历史日记和总结。</li>
         <li><strong>导出权</strong>：你可以将所有数据导出为 Markdown、CSV、纯文本或完整 JSON 备份。</li>
@@ -632,7 +665,7 @@
     </div>
     <div data-lang="en">
       <h2><span class="icon">⚖️</span> Your Rights</h2>
-      <p>Because Via collects no server-side data, full control over your data rests entirely with you:</p>
+      <p>Because Via Journal collects no server-side data, full control over your data rests entirely with you:</p>
       <ul>
         <li><strong>Right to access</strong>: You can view all past journals and summaries at any time within the app.</li>
         <li><strong>Right to export</strong>: You can export all your data as Markdown, CSV, plain text, or a full JSON backup.</li>
@@ -646,11 +679,11 @@
   <div class="section">
     <div data-lang="zh">
       <h2><span class="icon">📝</span> 隐私政策变更</h2>
-      <p>如果本隐私政策发生实质性变更，我们将在 App 更新说明中告知，并更新本页顶部的「最后更新」日期。继续使用 Via 即表示你接受更新后的政策。</p>
+      <p>如果本隐私政策发生实质性变更，我们将在 App 更新说明中告知，并更新本页顶部的「最后更新」日期。继续使用 Via拾光 即表示你接受更新后的政策。</p>
     </div>
     <div data-lang="en">
       <h2><span class="icon">📝</span> Changes to This Policy</h2>
-      <p>If this Privacy Policy changes materially, we will notify you in the App Store release notes and update the "Last updated" date at the top of this page. Continued use of Via after changes take effect constitutes your acceptance of the updated policy.</p>
+      <p>If this Privacy Policy changes materially, we will notify you in the App Store release notes and update the "Last updated" date at the top of this page. Continued use of Via Journal after changes take effect constitutes your acceptance of the updated policy.</p>
     </div>
   </div>
 
@@ -663,7 +696,7 @@
         <div class="avatar">👤</div>
         <div>
           <div class="name">Peter Chang</div>
-          <div class="email">Via 开发者</div>
+          <div class="email">Via拾光 开发者</div>
           <div class="email"><a href="mailto:via@peter-chang.net">via@peter-chang.net</a></div>
         </div>
       </div>
@@ -676,7 +709,7 @@
         <div class="avatar">👤</div>
         <div>
           <div class="name">Peter Chang</div>
-          <div class="email">Via Developer</div>
+          <div class="email">Via Journal Developer</div>
           <div class="email"><a href="mailto:via@peter-chang.net">via@peter-chang.net</a></div>
         </div>
       </div>
@@ -686,8 +719,8 @@
 
   <!-- Footer -->
   <footer>
-    <span data-lang="zh">© 2026 Peter Chang · Via App · 保留所有权利</span>
-    <span data-lang="en">© 2026 Peter Chang · Via App · All rights reserved</span>
+    <span data-lang="zh">© 2026 Peter Chang · Via拾光 App · 保留所有权利</span>
+    <span data-lang="en">© 2026 Peter Chang · Via Journal App · All rights reserved</span>
   </footer>
 
 </div>

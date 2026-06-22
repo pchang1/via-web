@@ -3,7 +3,7 @@ services:
     image: via-web:latest
     container_name: via-web
     ports:
-      - "5080:80"
+      - "3080:80"
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "wget", "-qO-", "http://localhost/"]

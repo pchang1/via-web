@@ -12,6 +12,9 @@
   <meta property="og:description" content="每天记录一点，长期看见自己的节奏。本地优先，AI 加持，完全私密。" />
   <meta property="og:type" content="website" />
 
+  <!-- Preload critical brand assets -->
+  <link rel="preload" href="AppIcon.png" as="image" fetchpriority="high" />
+
   <!-- Google Fonts for bespoke editorial typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1005,7 +1008,7 @@
 <section class="hero">
   <div class="hero-icon-wrap">
     <div class="hero-icon-bg">
-      <img src="AppIcon.png" alt="Via Logo" />
+      <img src="AppIcon.png" alt="Via Logo" fetchpriority="high" loading="eager" />
     </div>
     <span class="hero-sparkle s1">✦</span>
     <span class="hero-sparkle s2">✦</span>

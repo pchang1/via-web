@@ -11,6 +11,8 @@ Via 的官网与隐私政策静态页面，基于 nginx + Docker 部署，无需
 | `index.html` | `/` | 产品主页 + App Store Support URL |
 | `privacy-policy.html` | `/privacy-policy` | 隐私政策（App Store Privacy Policy URL）|
 
+主页会根据语言自动展示对应的 App Preview 视频与截图：中文素材位于 `media/zh/`，英文素材位于 `media/en/`。视频采用 metadata 预加载，截图采用浏览器懒加载，避免首次访问下载全部媒体。
+
 ---
 
 ## 环境要求
@@ -125,6 +127,7 @@ via-web/
   nginx.conf            # nginx 虚拟主机配置
   Dockerfile            # 镜像构建文件
   docker-compose.yml    # Compose 编排文件
+  media/                # 中英文 App Preview 视频与截图
   README.md             # 本文件
 ```
 

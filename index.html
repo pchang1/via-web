@@ -780,6 +780,105 @@
       .contact-card { flex-direction: column; }
     }
 
+    /* ─────────────────────────── App previews ─────────────────────────── */
+    .preview-section {
+      border-top: 1px solid var(--border);
+    }
+    .preview-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 280px));
+      justify-content: center;
+      gap: 28px;
+      margin-top: 42px;
+    }
+    .preview-item {
+      min-width: 0;
+    }
+    .preview-video {
+      display: block;
+      width: 100%;
+      aspect-ratio: 886 / 1920;
+      object-fit: cover;
+      background: #0b0f0d;
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      box-shadow: var(--shadow-lg);
+    }
+    .preview-item figcaption {
+      margin-top: 14px;
+      text-align: center;
+      color: var(--primary);
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.35;
+    }
+    .preview-item figcaption span {
+      display: block;
+      margin-top: 4px;
+      color: var(--secondary);
+      font-size: 13px;
+      font-weight: 400;
+    }
+    .screenshot-heading {
+      margin-top: 64px;
+      margin-bottom: 20px;
+      color: var(--primary);
+      font-size: 18px;
+      font-weight: 700;
+      text-align: center;
+    }
+    .screenshot-rail {
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(170px, 210px);
+      gap: 18px;
+      padding: 4px max(24px, calc((100vw - 1120px) / 2)) 22px;
+      overflow-x: auto;
+      overscroll-behavior-inline: contain;
+      scroll-snap-type: inline mandatory;
+      scrollbar-color: var(--border) transparent;
+    }
+    html[lang="zh-Hans"] .screenshot-rail[data-lang="zh"],
+    html[lang="en"] .screenshot-rail[data-lang="en"] {
+      display: grid;
+    }
+    .screenshot-item {
+      scroll-snap-align: start;
+    }
+    .screenshot-item img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 1320 / 2868;
+      object-fit: cover;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      background: var(--bg2);
+      box-shadow: var(--shadow);
+    }
+    .screenshot-item figcaption {
+      margin-top: 10px;
+      color: var(--secondary);
+      font-size: 12px;
+      line-height: 1.35;
+      text-align: center;
+    }
+
+    @media (max-width: 600px) {
+      .preview-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 30px;
+      }
+      .preview-video { border-radius: 20px; }
+      .preview-item figcaption { font-size: 13px; }
+      .preview-item figcaption span { font-size: 11px; }
+      .screenshot-heading { margin-top: 44px; }
+      .screenshot-rail {
+        grid-auto-columns: minmax(150px, 44vw);
+        gap: 12px;
+        padding-inline: 20px;
+      }
+    }
+
     /* ─────────────────────────── Showcase ─────────────────────────── */
     .showcase-section {
       background: var(--bg2);
@@ -958,7 +1057,7 @@
     <img src="AppIcon.png" alt="Via Logo" style="width: 24px; height: 24px; border-radius: 5px; display: inline-block; vertical-align: middle; margin-right: 4px; box-shadow: 0 1px 4px rgba(0,0,0,0.1);" />
     <span style="font-weight: 800; vertical-align: middle;">
       <span data-lang="zh">Via拾光</span>
-      <span data-lang="en">Via拾光</span>
+      <span data-lang="en">Via Journal</span>
     </span>
   </a>
 
@@ -1017,7 +1116,7 @@
 
   <div class="hero-via">
     <span data-lang="zh">Via拾光</span>
-    <span data-lang="en">Via拾光</span>
+    <span data-lang="en">Via Journal</span>
   </div>
 
   <div data-lang="zh">
@@ -1046,6 +1145,84 @@
     <div class="hero-badge"><div class="dot"></div><span data-lang="zh">设备端 AI</span><span data-lang="en">On-device AI</span></div>
     <div class="hero-badge"><div class="dot"></div><span data-lang="zh">无账号 · 无追踪</span><span data-lang="en">No account · No tracking</span></div>
     <div class="hero-badge"><div class="dot"></div><span data-lang="zh">中英双语</span><span data-lang="en">Chinese & English</span></div>
+  </div>
+</section>
+
+
+<!-- ─── App Preview Videos & Screenshots ─── -->
+<section class="preview-section" id="previews">
+  <div class="section-inner">
+    <div data-lang="zh">
+      <p class="section-label">App Preview</p>
+      <h2 class="section-title">先看见 Via拾光 如何陪你记录</h2>
+      <p class="section-sub">从第一次打开，到在长期记录中看见生活线索。所有画面均来自真实 App。</p>
+
+      <div class="preview-grid">
+        <figure class="preview-item">
+          <video class="preview-video" controls playsinline preload="metadata" poster="media/zh/screenshots/01_欢迎来到Via.png">
+            <source src="media/zh/Via-1.2-AppPreview-NewUser-iPhone17ProMax-zh.mp4" type="video/mp4" />
+          </video>
+          <figcaption>第一次来到 Via拾光<span>欢迎、隐私与个性化旅程</span></figcaption>
+        </figure>
+        <figure class="preview-item">
+          <video class="preview-video" controls playsinline preload="metadata" poster="media/zh/screenshots/05_连续40天与生活线索.png">
+            <source src="media/zh/Via-1.2-AppPreview-40DayUser-iPhone17ProMax-zh.mp4" type="video/mp4" />
+          </video>
+          <figcaption>记录四十天以后<span>生活线索、周期总结与日记历史</span></figcaption>
+        </figure>
+      </div>
+
+      <h3 class="screenshot-heading">完整界面一览</h3>
+    </div>
+
+    <div data-lang="en">
+      <p class="section-label">App Previews</p>
+      <h2 class="section-title">See How Via Journal Holds Your Story</h2>
+      <p class="section-sub">From your first launch to the patterns revealed through long-term journaling. Every frame comes from the real app.</p>
+
+      <div class="preview-grid">
+        <figure class="preview-item">
+          <video class="preview-video" controls playsinline preload="metadata" poster="media/en/screenshots/01_Welcome-to-Via.png">
+            <source src="media/en/Via-1.2-AppPreview-NewUser-iPhone17ProMax-en.mp4" type="video/mp4" />
+          </video>
+          <figcaption>Your First Moments with Via Journal<span>Welcome, privacy, and personalization</span></figcaption>
+        </figure>
+        <figure class="preview-item">
+          <video class="preview-video" controls playsinline preload="metadata" poster="media/en/screenshots/05_Streak-and-Life-Clues.png">
+            <source src="media/en/Via-1.2-AppPreview-LongTermUser-iPhone17ProMax-en.mp4" type="video/mp4" />
+          </video>
+          <figcaption>What Time Reveals<span>Life clues, summaries, and journal history</span></figcaption>
+        </figure>
+      </div>
+
+      <h3 class="screenshot-heading">Explore Every View</h3>
+    </div>
+  </div>
+
+  <div class="screenshot-rail" data-lang="zh" aria-label="Via拾光 中文界面截图">
+    <figure class="screenshot-item"><img src="media/zh/screenshots/01_欢迎来到Via.png" alt="欢迎来到 Via拾光" loading="lazy" decoding="async" /><figcaption>欢迎来到 Via拾光</figcaption></figure>
+    <figure class="screenshot-item"><img src="media/zh/screenshots/02_隐私空间.png" alt="隐私空间说明" loading="lazy" decoding="async" /><figcaption>只属于你的隐私空间</figcaption></figure>
+    <figure class="screenshot-item"><img src="media/zh/screenshots/03_个性化入口.png" alt="个性化问题入口" loading="lazy" decoding="async" /><figcaption>让 Via 更懂现在的你</figcaption></figure>
+    <figure class="screenshot-item"><img src="media/zh/screenshots/04_个性化问答.png" alt="个性化轻量问答" loading="lazy" decoding="async" /><figcaption>个性化轻量问答</figcaption></figure>
+    <figure class="screenshot-item"><img src="media/zh/screenshots/05_连续40天与生活线索.png" alt="连续记录与生活线索" loading="lazy" decoding="async" /><figcaption>连续记录与生活线索</figcaption></figure>
+    <figure class="screenshot-item"><img src="media/zh/screenshots/06_每周总结.png" alt="每周总结列表" loading="lazy" decoding="async" /><figcaption>每周总结</figcaption></figure>
+    <figure class="screenshot-item"><img src="media/zh/screenshots/07_周总结详情.png" alt="周总结详情" loading="lazy" decoding="async" /><figcaption>周总结详情</figcaption></figure>
+    <figure class="screenshot-item"><img src="media/zh/screenshots/08_月总结详情.png" alt="月总结详情" loading="lazy" decoding="async" /><figcaption>月总结详情</figcaption></figure>
+    <figure class="screenshot-item"><img src="media/zh/screenshots/09_日记历史.png" alt="日记历史" loading="lazy" decoding="async" /><figcaption>日记历史</figcaption></figure>
+    <figure class="screenshot-item"><img src="media/zh/screenshots/10_当日记录与Via反馈.png" alt="当日记录与 Via 反馈" loading="lazy" decoding="async" /><figcaption>当日记录与 Via 反馈</figcaption></figure>
+  </div>
+
+  <div class="screenshot-rail" data-lang="en" aria-label="Via Journal interface screenshots">
+    <figure class="screenshot-item"><img src="media/en/screenshots/01_Welcome-to-Via.png" alt="Welcome to Via Journal" loading="lazy" decoding="async" /><figcaption>Welcome to Via Journal</figcaption></figure>
+    <figure class="screenshot-item"><img src="media/en/screenshots/02_Your-Private-Space.png" alt="Your private space" loading="lazy" decoding="async" /><figcaption>Your Private Space</figcaption></figure>
+    <figure class="screenshot-item"><img src="media/en/screenshots/03_Personalization-Intro.png" alt="Personalization introduction" loading="lazy" decoding="async" /><figcaption>Personalization Introduction</figcaption></figure>
+    <figure class="screenshot-item"><img src="media/en/screenshots/04_Personalization-Check-In.png" alt="Personalization check-in" loading="lazy" decoding="async" /><figcaption>Personalization Check-In</figcaption></figure>
+    <figure class="screenshot-item"><img src="media/en/screenshots/05_Streak-and-Life-Clues.png" alt="Streak and recent life clues" loading="lazy" decoding="async" /><figcaption>Streak and Life Clues</figcaption></figure>
+    <figure class="screenshot-item"><img src="media/en/screenshots/06_Weekly-Summaries.png" alt="Weekly summaries" loading="lazy" decoding="async" /><figcaption>Weekly Summaries</figcaption></figure>
+    <figure class="screenshot-item"><img src="media/en/screenshots/07_Weekly-Summary-Detail.png" alt="Weekly summary detail" loading="lazy" decoding="async" /><figcaption>Weekly Summary Detail</figcaption></figure>
+    <figure class="screenshot-item"><img src="media/en/screenshots/08_Monthly-Summary-Detail.png" alt="Monthly summary detail" loading="lazy" decoding="async" /><figcaption>Monthly Summary Detail</figcaption></figure>
+    <figure class="screenshot-item"><img src="media/en/screenshots/09_Journal-History.png" alt="Journal history" loading="lazy" decoding="async" /><figcaption>Journal History</figcaption></figure>
+    <figure class="screenshot-item"><img src="media/en/screenshots/10_Record-and-Via-Feedback.png" alt="Daily record and Via feedback" loading="lazy" decoding="async" /><figcaption>Record and Via Feedback</figcaption></figure>
   </div>
 </section>
 
@@ -1095,7 +1272,7 @@
         <div class="device-mockup">
           <div class="device-notch"></div>
           <div class="device-screen">
-            <img id="showcase-img-primary" class="mockup-img active" src="screenshots/03_今天_首页.png" alt="Today view primary" />
+            <img id="showcase-img-primary" class="mockup-img active" src="media/zh/screenshots/05_连续40天与生活线索.png" alt="今日记录与最近生活线索" />
           </div>
         </div>
 
@@ -1114,7 +1291,7 @@
             </div>
             <div data-lang="en">
               <h3 class="slide-title">A Few Minutes a Day to Capture Your Path</h3>
-              <p class="slide-desc">Via拾光 uses simple structured prompts. Once you submit, your on-device AI generates a gentle reflection with support and directions for tomorrow.</p>
+              <p class="slide-desc">Via Journal uses simple structured prompts. Once you submit, your on-device AI generates a gentle reflection with support and directions for tomorrow.</p>
               <ul class="slide-list">
                 <li><strong>Structured prompts</strong>: Outlining outputs, time-wasters, and next plans.</li>
                 <li><strong>Daily feedback</strong>: Affirming your progress with actionable suggestions.</li>
@@ -1136,7 +1313,7 @@
             </div>
             <div data-lang="en">
               <h3 class="slide-title">Build and Fine-Tune Your Self-Portrait</h3>
-              <p class="slide-desc">A light 20-question onboarding sets up your personality dimensions. Each week, Via拾光 reads your journals to suggest updates to your self-portrait, keeping your daily prompts tailored to your state.</p>
+              <p class="slide-desc">A light 20-question onboarding sets up your personality dimensions. Each week, Via Journal reads your journals to suggest updates to your self-portrait, keeping your daily prompts tailored to your state.</p>
               <ul class="slide-list">
                 <li><strong>Multi-dimensional profile</strong>: Tracks openness, conscientiousness, agreeableness, etc.</li>
                 <li><strong>Dynamic updates</strong>: AI pre-fills personality checks based on weekly journals.</li>
@@ -1158,7 +1335,7 @@
             </div>
             <div data-lang="en">
               <h3 class="slide-title">Longer Usage, Deeper Insights</h3>
-              <p class="slide-desc">From weekly summaries to annual retrospectives, Via拾光's AI tracks your habits, energy triggers, and mood trends, crowning each report with a warm, encouraging title.</p>
+              <p class="slide-desc">From weekly summaries to annual retrospectives, Via Journal's AI tracks your habits, energy triggers, and mood trends, crowning each report with a warm, encouraging title.</p>
               <ul class="slide-list">
                 <li><strong>Weekly observation</strong>: Unlocked automatically after 7 days of journaling.</li>
                 <li><strong>Long-term reflection</strong>: Covering monthly, quarterly, and annual growth views.</li>
@@ -1206,7 +1383,7 @@
     <div data-lang="en">
       <p class="section-label">Philosophy</p>
       <h2 class="section-title">Do less. Feel more.</h2>
-      <p class="section-sub">Via拾光 isn't an app that rewards streaks or gamifies your habits. It's a quiet place to pause each day and write something true about yourself.</p>
+      <p class="section-sub">Via Journal isn't an app that rewards streaks or gamifies your habits. It's a quiet place to pause each day and write something true about yourself.</p>
     </div>
 
     <div class="philosophy-grid">
@@ -1270,7 +1447,7 @@
     <div data-lang="en">
       <p class="section-label">How it works</p>
       <h2 class="section-title">Start in minutes. Benefit for years.</h2>
-      <p class="section-sub">Via拾光's flow is deliberately simple. Spend a few minutes each day — and let time do the rest.</p>
+      <p class="section-sub">Via Journal's flow is deliberately simple. Spend a few minutes each day — and let time do the rest.</p>
     </div>
 
     <div class="steps">
@@ -1296,7 +1473,7 @@
           </div>
           <div data-lang="en">
             <p class="step-title">AI distills your life threads</p>
-            <p class="step-desc">After each entry, Via拾光's AI gives you a gentle daily reflection. Your home screen also shows live patterns from your last 7 entries — output direction, time habits, next intentions.</p>
+            <p class="step-desc">After each entry, Via Journal's AI gives you a gentle daily reflection. Your home screen also shows live patterns from your last 7 entries — output direction, time habits, next intentions.</p>
           </div>
         </div>
       </div>
@@ -1309,7 +1486,7 @@
           </div>
           <div data-lang="en">
             <p class="step-title">Periodic reflections reveal patterns</p>
-            <p class="step-desc">After 7 days, Via拾光 generates your first Weekly Observation. Monthly, quarterly, and annual summaries follow — each with an AI-crafted title that feels like a gentle coach reflecting back what you've done.</p>
+            <p class="step-desc">After 7 days, Via Journal generates your first Weekly Observation. Monthly, quarterly, and annual summaries follow — each with an AI-crafted title that feels like a gentle coach reflecting back what you've done.</p>
           </div>
         </div>
       </div>
@@ -1329,7 +1506,7 @@
     <div data-lang="en">
       <p class="section-label">Features</p>
       <h2 class="section-title">Everything you need. Nothing you don't.</h2>
-      <p class="section-sub">Via拾光 focuses on journaling and reflection — no social feeds, leaderboards, points, or anything that pulls your attention outward.</p>
+      <p class="section-sub">Via Journal focuses on journaling and reflection — no social feeds, leaderboards, points, or anything that pulls your attention outward.</p>
     </div>
 
     <div class="feature-grid">
@@ -1386,7 +1563,7 @@
         <div class="feature-icon-wrap">🔔</div>
         <div>
           <div data-lang="zh"><p class="feature-text-title">每日提醒</p><p class="feature-text-desc">设置你的复盘时间，Via拾光 发送本地通知提醒，完全不经过网络。</p></div>
-          <div data-lang="en"><p class="feature-text-title">Daily reminders</p><p class="feature-text-desc">Set your reflection time. Via拾光 sends local notifications — no network involved.</p></div>
+          <div data-lang="en"><p class="feature-text-title">Daily reminders</p><p class="feature-text-desc">Set your reflection time. Via Journal sends local notifications — no network involved.</p></div>
         </div>
       </div>
       <div class="feature-card reveal">
@@ -1419,7 +1596,7 @@
     <div data-lang="en">
       <p class="section-label">AI Summaries</p>
       <h2 class="section-title">The longer you use it, the deeper it sees.</h2>
-      <p class="section-sub">Via拾光's AI reflects on your records at the end of each period, generating a gentle personal observation report.</p>
+      <p class="section-sub">Via Journal's AI reflects on your records at the end of each period, generating a gentle personal observation report.</p>
     </div>
 
     <div class="ai-cards">
@@ -1473,7 +1650,7 @@
       </div>
       <div data-lang="en">
         <h3>Your journal. Only yours.</h3>
-        <p>Via拾光 has no server accounts, uses no cloud AI services, and integrates zero third-party tracking SDKs. AI inference runs entirely on your device.</p>
+        <p>Via Journal has no server accounts, uses no cloud AI services, and integrates zero third-party tracking SDKs. AI inference runs entirely on your device.</p>
       </div>
       <div class="privacy-pills">
         <div class="pill">🔒 <span data-lang="zh">本地存储</span><span data-lang="en">Local storage</span></div>
@@ -1512,7 +1689,7 @@
         </div>
         <div class="faq-a">
           <span data-lang="zh">不会。所有日记、照片、AI 内容都保存在你的 iPhone 本地数据库（SwiftData）中，从不发送到任何服务器。Via拾光 没有后端，没有账号系统。</span>
-          <span data-lang="en">No. All journals, photos, and AI content are saved in your iPhone's local database (SwiftData) and never sent to any server. Via拾光 has no backend and no account system.</span>
+          <span data-lang="en">No. All journals, photos, and AI content are saved in your iPhone's local database (SwiftData) and never sent to any server. Via Journal has no backend and no account system.</span>
         </div>
       </div>
 
@@ -1525,7 +1702,7 @@
         </div>
         <div class="faq-a">
           <span data-lang="zh">不需要。Via拾光 使用 Apple Foundation Models——一种完全运行在设备端的大语言模型，无需联网。若设备暂不支持，Via拾光 会使用内置模板生成内容，同样不需要网络。</span>
-          <span data-lang="en">No. Via拾光 uses Apple Foundation Models — a large language model running entirely on your device with no internet required. If your device doesn't support it yet, Via拾光 uses built-in templates to generate content, also with no network needed.</span>
+          <span data-lang="en">No. Via Journal uses Apple Foundation Models — a large language model running entirely on your device with no internet required. If your device doesn't support it yet, Via Journal uses built-in templates to generate content, also with no network needed.</span>
         </div>
       </div>
 
@@ -1577,7 +1754,7 @@
         </div>
         <div class="faq-a">
           <span data-lang="zh">可以。Via拾光 支持「待补全」功能。在日历或历史时间线中，你可以直接点击任何未记录的日期进行补写，或者通过历史顶部的提醒横幅一键补记。当然，跳过某些天完全没问题，Via拾光 没有任何连续打卡压力，一切以你的节奏为准。</span>
-          <span data-lang="en">Yes. Via拾光 supports backdated entries. You can tap any empty date on the calendar tab or timeline to add an entry, or use the retroactive banner in the history tab. Skipping a day is still completely fine — Via拾光 won't pressure you.</span>
+          <span data-lang="en">Yes. Via Journal supports backdated entries. You can tap any empty date on the calendar tab or timeline to add an entry, or use the retroactive banner in the history tab. Skipping a day is still completely fine — Via Journal won't pressure you.</span>
         </div>
       </div>
 
@@ -1585,12 +1762,12 @@
       <div class="faq-item" onclick="toggleFaq(this)">
         <div class="faq-q">
           <span data-lang="zh">Via拾光 支持哪些 iPhone 型号？</span>
-          <span data-lang="en">Which iPhone models does Via拾光 support?</span>
+          <span data-lang="en">Which iPhone models does Via Journal support?</span>
           <span class="faq-chevron">▼</span>
         </div>
         <div class="faq-a">
           <span data-lang="zh">Via拾光 需要 iOS 17.0 或更新版本。Apple Foundation Models 的 AI 功能需要支持该特性的设备（目前为搭载 A17 Pro 及以上芯片或 M 系列芯片的设备）；其他设备可使用模板生成版本的 AI 内容，所有其他功能完全可用。</span>
-          <span data-lang="en">Via拾光 requires iOS 17.0 or later. The AI features powered by Apple Foundation Models require a supported device (currently A17 Pro or later, or M-series chip). On other devices, Via拾光 uses template-generated AI content — all other features work fully.</span>
+          <span data-lang="en">Via Journal requires iOS 17.0 or later. The AI features powered by Apple Foundation Models require a supported device (currently A17 Pro or later, or M-series chip). On other devices, Via Journal uses template-generated AI content — all other features work fully.</span>
         </div>
       </div>
 
@@ -1603,7 +1780,7 @@
         </div>
         <div class="faq-a">
           <span data-lang="zh">Via拾光 会自动跟随 iOS 系统语言（中文系统 → 中文，其他语言 → 英文）。你也可以前往「设置 → 语言」手动切换，切换后 AI 生成的内容也会随之改变语言。</span>
-          <span data-lang="en">Via拾光 automatically follows your iOS system language (Chinese system → Chinese; other languages → English). You can also go to Settings → Language to switch manually. AI-generated content will follow your chosen language.</span>
+          <span data-lang="en">Via Journal automatically follows your iOS system language (Chinese system → Chinese; other languages → English). You can also go to Settings → Language to switch manually. AI-generated content will follow your chosen language.</span>
         </div>
       </div>
 
@@ -1632,7 +1809,7 @@
         <p class="contact-name">Peter Chang</p>
         <p class="contact-role">
           <span data-lang="zh">Via拾光 独立开发者</span>
-          <span data-lang="en">Independent Developer, Via拾光</span>
+          <span data-lang="en">Independent Developer, Via Journal</span>
         </p>
         <a class="contact-email" href="mailto:via@peter-chang.net">
           ✉ via@peter-chang.net
@@ -1642,7 +1819,7 @@
 
     <p class="response-note">
       <span data-lang="zh">⏱ 通常在 72 小时内回复。感谢你使用 Via拾光。</span>
-      <span data-lang="en">⏱ Typically responds within 72 hours. Thank you for using Via拾光.</span>
+      <span data-lang="en">⏱ Typically responds within 72 hours. Thank you for using Via Journal.</span>
     </p>
   </div>
 </section>
@@ -1671,7 +1848,7 @@
     </div>
     <p class="footer-copy">
       <span data-lang="zh">© 2026 Peter Chang · Via拾光 App · 保留所有权利</span>
-      <span data-lang="en">© 2026 Peter Chang · Via拾光 App · All rights reserved</span>
+      <span data-lang="en">© 2026 Peter Chang · Via Journal App · All rights reserved</span>
     </p>
   </div>
 </footer>
@@ -1684,7 +1861,11 @@
     document.documentElement.lang = lang;
     document.getElementById('btn-zh').classList.toggle('active', lang === 'zh-Hans');
     document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    document.title = lang === 'en'
+      ? 'Via Journal · Private Journal & Reflection'
+      : 'Via拾光 · 私人日记与复盘';
     localStorage.setItem('via-lang', lang);
+    updateShowcaseImage();
   }
 
   /* Dropdown menu */
@@ -1717,26 +1898,47 @@
   document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
   /* Showcase switching */
-  const showcaseData = [
-    {
-      img: 'screenshots/03_今天_首页.png',
-      alt: 'Today record feedback'
-    },
-    {
-      img: 'screenshots/02_自我画像_雷达.png',
-      alt: 'Self-Portrait traits and clues'
-    },
-    {
-      img: 'screenshots/08_每周AI总结.png',
-      alt: 'Weekly AI summary details'
-    },
-    {
-      img: 'screenshots/10_日记历史_40天.png',
-      alt: 'Calendar history timeline'
+  let activeShowcaseIndex = 0;
+  const showcaseData = {
+    'zh-Hans': [
+      { img: 'media/zh/screenshots/05_连续40天与生活线索.png', alt: '今日记录与最近生活线索' },
+      { img: 'media/zh/screenshots/03_个性化入口.png', alt: '个性化问题入口' },
+      { img: 'media/zh/screenshots/07_周总结详情.png', alt: '每周总结详情' },
+      { img: 'media/zh/screenshots/09_日记历史.png', alt: '日记历史列表' }
+    ],
+    en: [
+      { img: 'media/en/screenshots/05_Streak-and-Life-Clues.png', alt: 'Today view and recent life clues' },
+      { img: 'media/en/screenshots/03_Personalization-Intro.png', alt: 'Personalization introduction' },
+      { img: 'media/en/screenshots/07_Weekly-Summary-Detail.png', alt: 'Weekly summary details' },
+      { img: 'media/en/screenshots/09_Journal-History.png', alt: 'Journal history timeline' }
+    ]
+  };
+
+  function updateShowcaseImage(animate = false) {
+    const imgEl = document.getElementById('showcase-img-primary');
+    if (!imgEl) return;
+
+    const lang = document.documentElement.lang === 'en' ? 'en' : 'zh-Hans';
+    const item = showcaseData[lang][activeShowcaseIndex];
+    const applyImage = () => {
+      imgEl.src = item.img;
+      imgEl.alt = item.alt;
+      imgEl.style.opacity = '1';
+      imgEl.style.transform = 'none';
+    };
+
+    if (!animate) {
+      applyImage();
+      return;
     }
-  ];
+
+    imgEl.style.opacity = '0';
+    imgEl.style.transform = 'scale(0.96) translateY(5px)';
+    setTimeout(applyImage, 200);
+  }
 
   function switchShowcase(index) {
+    activeShowcaseIndex = index;
     const tabs = document.querySelectorAll('.showcase-tab');
     tabs.forEach((tab, idx) => {
       tab.classList.toggle('active', idx === index);
@@ -1747,18 +1949,7 @@
       slide.classList.toggle('active', idx === index);
     });
 
-    const imgEl = document.getElementById('showcase-img-primary');
-    if (imgEl) {
-      imgEl.style.opacity = '0';
-      imgEl.style.transform = 'scale(0.96) translateY(5px)';
-      
-      setTimeout(() => {
-        imgEl.src = showcaseData[index].img;
-        imgEl.alt = showcaseData[index].alt;
-        imgEl.style.opacity = '1';
-        imgEl.style.transform = 'none';
-      }, 200);
-    }
+    updateShowcaseImage(true);
   }
 
   /* Auto-detect language */
